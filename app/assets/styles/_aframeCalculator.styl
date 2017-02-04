@@ -1,0 +1,57 @@
+.overlay-content
+  z-index 100
+  background-color rgba(240,240,240, 0.6)
+  color $fontColor
+  margin: 0 auto
+
+.calculator
+  label
+    display inline-block
+    padding $layoutSpace 0
+  input
+    margin: 2px 0
+    padding $layoutSpaceHalf $layoutSpaceHalf
+    font-size 12px
+    line-height 1em
+    background-color rgba(240,240,240, 0.8)
+    border 1px solid rgba(0, 0, 0, 0.5)
+    color $colorSecondary
+    font-weight bold
+  .source-fields
+    margin $layoutSpace 0 $layoutSpaceDouble
+    input
+      width 90px
+      color $colorPrimary
+      text-align center
+      font-size 16px
+    > div
+      position relative
+      color $colorPrimary
+      font-size 30px
+      &:before
+        position absolute
+        left -29px
+        top 3px
+      &:last-child:before
+        left auto
+        right -36px
+
+  .calculator-fields
+    font-size 14px
+    input
+      margin 0
+      width 90px
+
+.flex-wrapper
+  display flex
+  justify-content center
+  align-items center
+  > span
+  > label
+    padding 0
+    flex 2 2
+    line-height: 26px
+    &:last-child
+      text-align left
+    &:first-child
+      text-align right

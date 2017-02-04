@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="60px" viewBox="0 0 64 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-height</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="width/height" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon-height" fill="#000000">
+            <rect id="Rectangle" x="3" y="14" width="40" height="30"></rect>
+            <g id="Group" transform="translate(53.500000, 29.500000) rotate(90.000000) translate(-53.500000, -29.500000) translate(36.000000, 21.000000)">
+                <polygon id="Line" fill-rule="nonzero" points="7 10.5 29 10.5 29 6.5 7 6.5"></polygon>
+                <polygon id="Triangle" transform="translate(30.939024, 8.500000) rotate(90.000000) translate(-30.939024, -8.500000) " points="30.9390244 5 38.9390244 12 22.9390244 12"></polygon>
+                <polygon id="Triangle-Copy" transform="translate(3.939024, 8.500000) rotate(-90.000000) translate(-3.939024, -8.500000) " points="3.93902439 5 11.9390244 12 -4.06097561 12"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

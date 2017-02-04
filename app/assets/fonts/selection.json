@@ -1,0 +1,125 @@
+{
+  "IcoMoonType": "selection",
+  "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M51.2 238.933h682.667v512h-682.667v-512z",
+          "M878.933 324.267v375.467h68.267v-375.467z",
+          "M913.067 792.559l-136.533-119.467h273.067z",
+          "M913.067 212.293l136.533 119.467h-273.067z"
+        ],
+        "attrs": [
+          {},
+          {},
+          {},
+          {}
+        ],
+        "width": 1092,
+        "grid": 16,
+        "tags": [
+          "icon-height"
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false
+      },
+      "attrs": [
+        {},
+        {},
+        {},
+        {}
+      ],
+      "properties": {
+        "order": 6,
+        "id": 1,
+        "name": "icon-height",
+        "prevSize": 32,
+        "code": 59648
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M170.667 836.267h524.488v-68.267h-524.488z",
+          "M802.133 802.133l-119.467 136.533v-273.067z",
+          "M51.2 802.133l119.467-136.533v273.067z",
+          "M85.333 102.4h682.667v512h-682.667v-512z"
+        ],
+        "attrs": [
+          {},
+          {},
+          {},
+          {}
+        ],
+        "width": 853,
+        "grid": 16,
+        "tags": [
+          "icon-width"
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false
+      },
+      "attrs": [
+        {},
+        {},
+        {},
+        {}
+      ],
+      "properties": {
+        "order": 7,
+        "id": 0,
+        "name": "icon-width",
+        "prevSize": 32,
+        "code": 59649
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 1
+    }
+  ],
+  "height": 1024,
+  "metadata": {
+    "name": "calculator"
+  },
+  "preferences": {
+    "showGlyphs": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {
+        "fontFamily": "calculator",
+        "majorVersion": 1,
+        "minorVersion": 0
+      },
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      },
+      "embed": false,
+      "noie8": true,
+      "ie7": false,
+      "showSelector": true,
+      "showMetrics": true,
+      "cssVars": true,
+      "cssVarsFormat": "styl"
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": true,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215,
+      "classSelector": ".icon"
+    },
+    "historySize": 100,
+    "showCodes": true,
+    "gridSize": 16,
+    "showGrid": true
+  }
+}
