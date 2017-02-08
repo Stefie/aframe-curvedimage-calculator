@@ -6,25 +6,31 @@ $colorSecondaryLight = #24CAFF
 
 $colorWhite = #f0f0f0
 $colorBlack = #333333
+$colorBlackOpacity = rgba(20, 20, 20, 0.5)
+$colorPrimaryOpacity = rgba(239, 45, 94, 0.5)
 
 /** Layout variables **/
 $bodyBgColor = $colorWhite
 
+$lightTransparentBg = rgba(240,240,240, 0.7)
+$darkTransparentBg = rgba(20, 20, 20, 0.7)
+
 
 /** Font colors **/
-$fontColor = $colorBlack
+$fontColor = $colorWhite
 
 $linkColor = $colorSecondary
 $linkColorHover = $fontColor
 
 /** Font Families **/
-$fontPathwayGothic = 'Pathway Gothic One', sans-serif;
-$fontRubik = 'Rubik', sans-serif
 $fontRobotoMono = 'Roboto Mono', monospace
-$fontChivo = 'Chivo', sans-serif;
+$fontLato = 'Lato', sans-serif
 
 $fontFamiliyBase = $fontRobotoMono
-$fontFamilyHighlight = $fontRubik
+$fontFamilyHighlight = $fontLato
+
+$fontSizeBase = 16px
+$fontSizeBaseMobile = 10px
 
 /** Layout variables **/
 $layoutSpace = 10px
@@ -33,7 +39,10 @@ $layoutSpaceDouble = $layoutSpace*2
 $layoutSpaceAndHalf = $layoutSpace*1.5
 
 /** icon font **/
-$icomoon-font-path ?= "/app/assets/fonts"
+$icomoonFontPath ?= "/app/assets/fonts/iconfont"
 
 $icon-icon-height = "\e900"
 $icon-icon-width = "\e901"
+
+/** custom font **/
+$customFontPath ?= "/app/assets/fonts/custom-fonts"

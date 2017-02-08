@@ -1,57 +1,83 @@
-.overlay-content
-  z-index 100
-  background-color rgba(240,240,240, 0.6)
-  color $fontColor
-  margin: 0 auto
-
 .calculator
+  background-color $colorPrimary
+  padding $layoutSpace $layoutSpaceHalf
+  position relative
+  z-index 100
+  width 100%
+  @media screen and (min-width: 375px)
+    padding $layoutSpaceDouble $layoutSpace
+  @media screen and (min-width: 560px)
+    max-width 560px
+    margin 0 auto
+
+  .flex-wrapper
+    display flex
+    justify-content center
+    align-items center
+    + .flex-wrapper
+      margin-top 3px
+    > div
+    > label
+      padding 0
+      flex 2 2
+      line-height: 24px
+      &:last-child
+        text-align left
+      &:first-child
+        text-align right
+      @media screen and (min-width: 560px)
+        line-height: 30px
   label
     display inline-block
-    padding $layoutSpace 0
+
   input
+    font-family $fontFamiliyBase
+    font-weight 700
     margin: 2px 0
-    padding $layoutSpaceHalf $layoutSpaceHalf
-    font-size 12px
-    line-height 1em
-    background-color rgba(240,240,240, 0.8)
+    padding 2px $layoutSpaceHalf
+    font-size 8px
+    line-height 12px
+    width 60px
+    background-color $colorWhite
     border 1px solid rgba(0, 0, 0, 0.5)
-    color $colorSecondary
-    font-weight bold
-  .source-fields
-    margin $layoutSpace 0 $layoutSpaceDouble
-    input
+    color $colorBlack
+    &:disabled
+      color $colorSecondary
+    @media screen and (min-width: 375px)
+      font-size 10px
+      width 65px
+    @media screen and (min-width: 560px)
+      font-size 12px
+      line-height 16px
       width 90px
-      color $colorPrimary
-      text-align center
-      font-size 16px
-    > div
-      position relative
-      color $colorPrimary
-      font-size 30px
-      &:before
-        position absolute
-        left -29px
-        top 3px
-      &:last-child:before
-        left auto
-        right -36px
 
   .calculator-fields
-    font-size 14px
     input
       margin 0
-      width 90px
 
-.flex-wrapper
-  display flex
-  justify-content center
-  align-items center
-  > span
-  > label
-    padding 0
-    flex 2 2
-    line-height: 26px
-    &:last-child
-      text-align left
-    &:first-child
-      text-align right
+  .source-fields
+    margin-bottom $layoutSpaceHalf
+    @media screen and (min-width: 560px)
+      margin-bottom $layoutSpaceDouble
+    input
+      text-align center
+      font-size 12px
+      @media screen and (min-width: 560px)
+        font-size 14px
+        padding 12px 8px
+    label
+      position relative
+      color $colorBlack
+      font-size 36px
+      @media screen and (min-width: 560px)
+        font-size 48px
+      &:before
+        left -54px
+        top 1px
+    div:last-child label:before
+      left auto
+      right 10px
+      top 0
+
+  .field-wrapper
+    display flex
