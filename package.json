@@ -20,7 +20,8 @@
   "author": "Stefanie Doll",
   "license": "ISC",
   "devDependencies": {
-    "aframe": "^0.4.0",
+    "aframe": "aframevr/aframe#8d88a5b",
+    "aframe-bmfont-text-component": "^0.1.4",
     "aframe-react": "^3.4.1",
     "autoprefixer": "^6.6.1",
     "autoprefixer-stylus": "^0.13.0",
