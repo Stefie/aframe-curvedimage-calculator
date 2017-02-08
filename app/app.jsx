@@ -28,10 +28,10 @@ class CurvedimageCalculator extends React.Component {
 		this._handleDefaultStates = this._handleDefaultStates.bind(this);
 		this._changeWpx = this._changeWpx.bind(this);
 
-		// include fonts
 		// delete url -> reset
-		// mobile theme
 		// hide html-parts on enterVR
+		// colors???
+		// footer-info
 	}
 	componentWillMount() {
 		let c = ( this.state.r * 2 * Math.PI ),
