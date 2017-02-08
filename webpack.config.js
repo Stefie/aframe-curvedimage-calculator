@@ -5,7 +5,7 @@ HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   context: __dirname + "/app",
-  entry: ['babel-polyfill','./app.js'],
+  entry: ['babel-polyfill','./app.jsx'],
   output: {
     path: __dirname + '/docs',
     filename: "bundle.js"
