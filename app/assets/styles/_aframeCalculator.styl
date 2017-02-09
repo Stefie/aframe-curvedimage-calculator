@@ -64,6 +64,12 @@
 			justify-content flex-end
 			&:last-child
 				flex-direction: row-reverse
+				.field-locked:after
+					right 25px
+					top 12px
+					@media screen and (min-width: 560px)
+						right 31px
+						top 15px
 		input
 			text-align center
 			font-size 12px
@@ -77,3 +83,14 @@
 			padding: 2px $layoutSpace
 			@media screen and (min-width: 560px)
 				font-size 44px
+			&.field-locked:after
+				useIcon()
+				content "\e98f"
+				color $colorHighlight
+				font-size 15px
+				position absolute
+				right 14px
+				top 7px
+				@media screen and (min-width: 560px)
+					right 18px
+					top 9px

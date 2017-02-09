@@ -14,33 +14,42 @@ class CurvedimageCalculator extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			appState: 'default',
 			assetCounter: 0,
-			wpx: '2048',
-			hpx: '1024',
-			ratio: '2',
-			c: false,
-			h: false,
-			r: '5',
-			thetaLength: '90',
-			thetaStart: '135',
-			assetSrc: '#tutorial',
-			publicSrc: ''
+			appState: '',
+			wpx: '',
+			hpx: '',
+			ratio: '',
+			c: '',
+			h: '',
+			r: '',
+			thetaLength: '',
+			thetaStart: '',
+			assetSrc: '',
+			publicSrc: '',
+			VRMode: ''
 		};
 		this._handleDefaultStates = this._handleDefaultStates.bind(this);
 		this._changeWpx = this._changeWpx.bind(this);
 
 		// delete url -> reset
-		// hide html-parts on enterVR
-		// colors???
-		// footer-info
+		// Template / Screenshot/ meta-info
 	}
 	componentWillMount() {
-		let c = ( this.state.r * 2 * Math.PI ),
-		h = ( this.state.thetaLength / 360 ) * ( c / this.state.ratio );
-		this.setState({
-			c: +c.toFixed(4),
-			h: +h.toFixed(4)
+		this._handleDefaultStates('default');
+	}
+	componentDidMount() {
+		const aScene = document.querySelector('a-scene'),
+					_this = this;
+
+		aScene.addEventListener('enter-vr', function(){
+			_this.setState({
+				VRMode: 'in-vr-mode'
+			});
+		});
+		aScene.addEventListener('exit-vr', function(){
+			_this.setState({
+				VRMode: ''
+			});
 		});
 	}
 	_changeWpx(e) {
@@ -97,16 +106,16 @@ class CurvedimageCalculator extends React.Component {
 		this._handleDefaultStates('loading', url);
 
 		const url = e.target.value,
-		helperImg = new Image(),
-		App = this;
+					helperImg = new Image(),
+					_this = this;
 
 		// echeck if the image can be loaded
 		helperImg.addEventListener("load", function(){
 			const imgWidth = this.naturalWidth,
-			imgHeight = this.naturalHeight,
-			assets = document.querySelector('a-assets'),
-			asset = document.createElement('a-asset-item'),
-			assetId = App.state.assetCounter + 1;
+						imgHeight = this.naturalHeight,
+						assets = document.querySelector('a-assets'),
+						asset = document.createElement('a-asset-item'),
+						assetId = _this.state.assetCounter + 1;
 
 			asset.id = 'asset-' + assetId;
 			asset.setAttribute('src', url);
@@ -114,18 +123,18 @@ class CurvedimageCalculator extends React.Component {
 			// listen to THREE.FileLoader error / loaded events for a-asset-item
 			asset.addEventListener("error", function(err){
 				assets.removeChild(asset);
-				App._handleDefaultStates('CORSError');
+				_this._handleDefaultStates('CORSError');
 			});
 
 			asset.addEventListener("loaded", function(){
-				App.setState({
+				_this.setState({
 					appState: 'preview',
 					assetCounter: assetId,
 					assetSrc: url,
 					wpx: imgWidth,
 					hpx: imgHeight,
 					ratio: +(imgWidth / imgHeight).toFixed(4),
-					h: +( (App.state.thetaLength / 360) * (App.state.c / (imgWidth / imgHeight)) ).toFixed(4)
+					h: +( (_this.state.thetaLength / 360) * (_this.state.c / (imgWidth / imgHeight)) ).toFixed(4)
 				});
 			});
 
@@ -133,18 +142,23 @@ class CurvedimageCalculator extends React.Component {
 		}, false)
 
 		helperImg.addEventListener( 'error', function(){
-			App._handleDefaultStates('urlError');
+			_this._handleDefaultStates('urlError');
 		}, false );
 
 		helperImg.src = url;
 	}
 
 	_handleDefaultStates(type, url) {
+		const c = 5 * 2 * Math.PI;
 		this.setState({
 			wpx: '2048',
 			hpx: '1024',
+			thetaLength: '90',
+			thetaStart: '135',
 			ratio: '2',
-			h: +( (this.state.thetaLength / 360) * (this.state.c / (2048 / 1024)) ).toFixed(4)
+			r: '5',
+			c: +c.toFixed(4),
+			h: +( (90 / 360) * (c / (2048 / 1024)) ).toFixed(4)
 		});
 		switch (type) {
 			case 'loading':
@@ -157,27 +171,27 @@ class CurvedimageCalculator extends React.Component {
 			case 'urlError':
 			this.setState({
 				appState: 'error',
-				assetSrc: '#error',
+				assetSrc: '#error'
 			});
 			break;
 			case 'CORSError':
 			this.setState({
 				appState: 'errorMaterial',
-				assetSrc: '#error-material',
+				assetSrc: '#error-material'
 			});
 			break;
 			case 'default':
 			this.setState({
 				publicSrc: '',
 				appState: 'default',
-				assetSrc: '#tutorial',
+				assetSrc: '#tutorial'
 			});
 			break;
 			default:
 			this.setState({
 				publicSrc: '',
 				appState: 'default',
-				assetSrc: '#tutorial',
+				assetSrc: '#tutorial'
 			});
 			break;
 		}
@@ -185,32 +199,34 @@ class CurvedimageCalculator extends React.Component {
 
 	render () {
 
-		let disabled = ( this.state.appState == 'preview' ) ? true : false ;
+		let disabledPxFields = ( this.state.appState == 'preview' ) ? true : false ;
+		let lockedIcon = disabledPxFields ? "field-locked" : '' ;
 
 		return (
-			<main className="page-wrapper">
+			<main className={"page-wrapper " +  this.state.VRMode }>
+				<GitHub />
 				<section className="overlay-content">
 					<form className="calculator">
 						<div className="source-fields flex-wrapper">
 							<div className="field-wrapper">
-								<label className="icon-icon-width" aria-label="image-width"></label>
+								<label className={"icon-icon-width " + lockedIcon} aria-label="image-width"></label>
 								<input
 									type="number"
 									value={ this.state.wpx }
 									onChange={this._changeWpx.bind(this)}
 									placeholder="image-width"
 									min="0"
-									disabled={disabled} />
+									disabled={disabledPxFields} />
 							</div>
 							<div className="field-wrapper">
-								<label className="icon-icon-height" aria-label="image-height"></label>
+								<label className={"icon-icon-height " + lockedIcon} aria-label="image-height"></label>
 								<input
 									type="number"
 									value={ this.state.hpx }
 									onChange={this._changeHpx.bind(this)}
 									placeholder="image-height"
 									min="0"
-									disabled={disabled} />
+									disabled={disabledPxFields} />
 							</div>
 						</div>
 						<div className="calculator-fields">
@@ -237,7 +253,7 @@ class CurvedimageCalculator extends React.Component {
 								type='url'
 								onChange={this._setImageSrc.bind(this)}
 								label=' src="'
-								postfix='"'
+								postfix={'"' + lockedIcon}
 								value={ this.state.publicSrc }
 								placeholder='image-src' />
 							<CalculatorField
