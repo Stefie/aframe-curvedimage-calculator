@@ -5,7 +5,7 @@
 	z-index 100
 	width 100%
 	@media screen and (min-width: 560px)
-		padding $layoutSpaceDouble $layoutSpace
+		padding  $layoutSpace
 		max-width 560px
 		margin 0 auto
 
@@ -14,7 +14,7 @@
 		justify-content center
 		align-items center
 		+ .flex-wrapper
-			margin-top 3px
+			margin-top 2px
 		label
 			display inline-block
 		> div
@@ -58,18 +58,6 @@
 
 	.source-fields
 		margin-bottom $layoutSpaceHalf
-		@media screen and (min-width: 560px)
-			margin-bottom $layoutSpaceDouble
-		.field-wrapper
-			justify-content flex-end
-			&:last-child
-				flex-direction: row-reverse
-				.field-locked:after
-					right 25px
-					top 12px
-					@media screen and (min-width: 560px)
-						right 31px
-						top 15px
 		input
 			text-align center
 			font-size 12px
@@ -92,5 +80,15 @@
 				right 14px
 				top 7px
 				@media screen and (min-width: 560px)
-					right 18px
+					right 17px
 					top 9px
+		.field-wrapper
+			justify-content flex-end
+			&:last-child
+				flex-direction: row-reverse
+				.field-locked:after
+					right 25px
+					top 12px
+					@media screen and (min-width: 560px)
+						right 31px
+						top 15px
