@@ -1,0 +1,39 @@
+.github-link
+	right 0
+	z-index 110
+	width 60px
+	height 60px
+	font-size 22px
+	@media screen and (min-width: 560px)
+		font-size 30px
+		width 80px
+		height 80px
+	&:after
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		border-color: transparent;
+		border-style: solid;
+		border-width: 30px;
+		border-right-color: $colorBlack;
+		border-top-color: $colorBlack;
+		@media screen and (min-width: 560px)
+			border-width: 40px;
+
+	a
+	a:active
+	a:focus
+		text-decoration: none
+		position relative
+		display block
+		color $colorWhite
+		height 100%
+		z-index 100
+	.icon-github
+		position absolute
+		top 7px
+		right 7px
+		@media screen and (min-width: 560px)
+			top 9px
+			right 9px

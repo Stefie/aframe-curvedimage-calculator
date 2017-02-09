@@ -5,6 +5,8 @@ import {Scene, Entity} from 'aframe-react';
 
 import CalculatorField from './components/calculatorField.jsx';
 import CalculatorPreview from './components/calculatorPreview.jsx';
+import Footer from './components/footer.jsx';
+import GitHub from './components/githubLink.jsx';
 
 const CSS = require('./assets/styles/style.styl');
 
@@ -251,6 +253,8 @@ class CurvedimageCalculator extends React.Component {
 				</section>
 
 				<CalculatorPreview { ...this.state } />
+
+				<Footer />
 			</main>
 		);
 	}
