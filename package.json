@@ -7,8 +7,9 @@
     "url": "git@github.com:Stefie/aframe-curvedimage-calculator.git"
   },
   "scripts": {
-    "start": "webpack-dev-server --hot --inline",
-    "build": "webpack --config webpack.config.prod.js"
+    "start": "webpack-dev-server --hot --inline --host 0.0.0.0 --port 8090",
+    "build": "webpack --config webpack.config.js",
+    "calculator": "webpack-dev-server --host 0.0.0.0 --port 8090"
   },
   "keywords": [
     "aframe",
@@ -20,9 +21,8 @@
   "author": "Stefanie Doll",
   "license": "ISC",
   "devDependencies": {
-    "aframe": "aframevr/aframe#8d88a5b",
-    "aframe-bmfont-text-component": "^0.1.4",
-    "aframe-react": "^3.4.1",
+    "aframe": "aframevr/aframe#bf7485b",
+    "aframe-react": "ngokevin/aframe-react#537a627",
     "autoprefixer": "^6.6.1",
     "autoprefixer-stylus": "^0.13.0",
     "babel-cli": "^6.18.0",
