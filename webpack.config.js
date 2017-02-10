@@ -7,7 +7,7 @@ module.exports = {
 	context: __dirname + "/app",
 	entry: ['babel-polyfill','./app.jsx'],
 	output: {
-		path: __dirname + '/',
+		path: __dirname,
 		filename: "bundle.js"
 	},
 	resolve: {
