@@ -25,7 +25,7 @@ export default class CalculatorField extends React.Component {
 						max={ this.props.max }
 						disabled={ this.props.disabled }
 						{...opts}  />
-					<span>{ this.props.postfix }</span>
+					<span className="postfix">{ this.props.postfix } {this.props.deleteIcon} </span>
 				</div>
 			</div>
 		);

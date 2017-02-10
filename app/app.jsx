@@ -26,12 +26,12 @@ class CurvedimageCalculator extends React.Component {
 			thetaStart: '',
 			assetSrc: '',
 			publicSrc: '',
-			VRMode: ''
+			VRMode: '',
+			deleteIcon: ''
 		};
 		this._handleDefaultStates = this._handleDefaultStates.bind(this);
 		// TODO's:
 		// delete url -> reset button
-		// readme
 	}
 	componentWillMount() {
 		this._handleDefaultStates('default');
@@ -68,7 +68,8 @@ class CurvedimageCalculator extends React.Component {
 			this.setState({
 				appState: 'loading',
 				publicSrc: url,
-				assetSrc: '#loading'
+				assetSrc: '#loading',
+				deleteIcon: <span className="icon-reset" onClick={this._deleteImageSource.bind(this)}></span>
 			});
 			break;
 			case 'urlError':
@@ -87,14 +88,16 @@ class CurvedimageCalculator extends React.Component {
 			this.setState({
 				publicSrc: '',
 				appState: 'default',
-				assetSrc: '#tutorial'
+				assetSrc: '#tutorial',
+				deleteIcon: ''
 			});
 			break;
 			default:
 			this.setState({
 				publicSrc: '',
 				appState: 'default',
-				assetSrc: '#tutorial'
+				assetSrc: '#tutorial',
+				deleteIcon: ''
 			});
 			break;
 		}
@@ -107,7 +110,8 @@ class CurvedimageCalculator extends React.Component {
 			h: +( (this.state.thetaLength / 360) * (this.state.c / (wpx / this.state.hpx)) ).toFixed(4),
 			publicSrc: '',
 			assetSrc: '#free',
-			appState: 'free'
+			appState: 'free',
+			deleteIcon: ''
 		});
 	}
 	_changeHpx(e) {
@@ -118,7 +122,8 @@ class CurvedimageCalculator extends React.Component {
 			h: +( (this.state.thetaLength / 360) * (this.state.c / (this.state.wpx / hpx)) ).toFixed(4),
 			publicSrc: '',
 			assetSrc: '#free',
-			appState: 'free'
+			appState: 'free',
+			deleteIcon: ''
 		});
 	}
 	_changeHeight(e) {
@@ -194,6 +199,9 @@ class CurvedimageCalculator extends React.Component {
 
 		helperImg.src = url;
 	}
+	_deleteImageSource(e){
+			this._handleDefaultStates('default');
+	}
 
 	render () {
 
@@ -253,7 +261,8 @@ class CurvedimageCalculator extends React.Component {
 								label=' src="'
 								postfix='"'
 								value={ this.state.publicSrc }
-								placeholder='image-src' />
+								placeholder='image-src'
+								deleteIcon={ this.state.deleteIcon } />
 							<CalculatorField
 								onChange={this._changeHeight.bind(this)}
 								label=' theta-start="'
