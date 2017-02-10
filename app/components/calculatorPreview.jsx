@@ -40,12 +40,9 @@ export default class CalculatorPreview extends React.Component {
 
 					<Entity id="sky" primitive='a-sky' material={{ color: '#f0f0f0' }} />
 
-					<a-text
-						value='loading...'
-						color='#21897C'
-						align='center'
-						position='0 1 -3'
-						scale='3 3 1'
+					<Entity
+						text="value: loading...; color: #21897C; align: center;  width: 20;"
+						position='0 1.2 -3'
 						visible={loading} >
 							<a-animation
 							attribute="scale"
@@ -53,9 +50,9 @@ export default class CalculatorPreview extends React.Component {
 							dur="800"
 							direction="alternate"
 							repeat="indefinite"
-							from="3 3  1"
-							to="3.1 3.1 1"></a-animation>
-					</a-text>
+							from="1 1  1"
+							to="1.05 1.05 1"></a-animation>
+					</Entity>
 
 				</Scene>
 			);
