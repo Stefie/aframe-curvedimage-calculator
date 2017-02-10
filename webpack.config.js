@@ -32,12 +32,11 @@ module.exports = {
 
 			},{
 				test: /\.styl$/,
-				loader: 'style-loader!css-loader!stylus-loader'
+				loader: 'style-loader!css-loader!stylus-loader?resolve url'
 			}
 		]
 	},
 	stylus: {
-		preferPathResolver: 'webpack',
 		use: [
 			poststylus([ 'autoprefixer'])
 		]

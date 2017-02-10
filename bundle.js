@@ -109943,8 +109943,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./style.styl", function() {
-				var newContent = require("!!./../../../../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js!./style.styl");
+			module.hot.accept("!!./../../../../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js?resolve url!./style.styl", function() {
+				var newContent = require("!!./../../../../../../node_modules/css-loader/index.js!./../../../node_modules/stylus-loader/index.js?resolve url!./style.styl");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
