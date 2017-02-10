@@ -8,7 +8,6 @@ module.exports = {
 	entry: ['babel-polyfill','./app.jsx'],
 	output: {
 		path: __dirname,
-		publicPath: './',
 		filename: "bundle.js"
 	},
 	resolve: {
@@ -33,8 +32,8 @@ module.exports = {
 
 			},{
 				test: /\.styl$/,
-				loader: 'style-loader!css-loader!stylus-loader?resolve url'
-			}
+				loader: 'style-loader!css-loader!stylus-loader'
+			},{ test: /\.(png|jpg|woff|woff2|eot|ttf|svg)(\?[a-z0-9=&.]+)?$/, loader: 'url-loader?limit=100000' }
 		]
 	},
 	stylus: {
