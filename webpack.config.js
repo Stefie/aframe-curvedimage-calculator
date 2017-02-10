@@ -13,7 +13,7 @@ module.exports = {
 	resolve: {
 		// Tell webpack to look for required files in node
 		modulesDirectories: ['node_modules'],
-		extensions: ['', '.js', '.jsx', '.json']
+		extensions: ['', '.js', '.jsx', '.json', '.styl']
 	},
 	module: {
 		// npParse === aframe Bugfix for console warning
