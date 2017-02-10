@@ -29,10 +29,9 @@ class CurvedimageCalculator extends React.Component {
 			VRMode: ''
 		};
 		this._handleDefaultStates = this._handleDefaultStates.bind(this);
-		this._changeWpx = this._changeWpx.bind(this);
-
-		// delete url -> reset
-		// Template / Screenshot/ meta-info
+		// TODO's:
+		// delete url -> reset button
+		// readme
 	}
 	componentWillMount() {
 		this._handleDefaultStates('default');
@@ -51,6 +50,54 @@ class CurvedimageCalculator extends React.Component {
 				VRMode: ''
 			});
 		});
+	}
+	_handleDefaultStates(type, url) {
+		const c = 5 * 2 * Math.PI;
+		this.setState({
+			wpx: '2048',
+			hpx: '1024',
+			thetaLength: '90',
+			thetaStart: '135',
+			ratio: '2',
+			r: '5',
+			c: +c.toFixed(4),
+			h: +( (90 / 360) * (c / (2048 / 1024)) ).toFixed(4)
+		});
+		switch (type) {
+			case 'loading':
+			this.setState({
+				appState: 'loading',
+				publicSrc: url,
+				assetSrc: '#loading'
+			});
+			break;
+			case 'urlError':
+			this.setState({
+				appState: 'error',
+				assetSrc: '#error'
+			});
+			break;
+			case 'CORSError':
+			this.setState({
+				appState: 'errorMaterial',
+				assetSrc: '#error-material'
+			});
+			break;
+			case 'default':
+			this.setState({
+				publicSrc: '',
+				appState: 'default',
+				assetSrc: '#tutorial'
+			});
+			break;
+			default:
+			this.setState({
+				publicSrc: '',
+				appState: 'default',
+				assetSrc: '#tutorial'
+			});
+			break;
+		}
 	}
 	_changeWpx(e) {
 		let wpx = e.target.value;
@@ -148,62 +195,13 @@ class CurvedimageCalculator extends React.Component {
 		helperImg.src = url;
 	}
 
-	_handleDefaultStates(type, url) {
-		const c = 5 * 2 * Math.PI;
-		this.setState({
-			wpx: '2048',
-			hpx: '1024',
-			thetaLength: '90',
-			thetaStart: '135',
-			ratio: '2',
-			r: '5',
-			c: +c.toFixed(4),
-			h: +( (90 / 360) * (c / (2048 / 1024)) ).toFixed(4)
-		});
-		switch (type) {
-			case 'loading':
-			this.setState({
-				appState: 'loading',
-				publicSrc: url,
-				assetSrc: '#loading'
-			});
-			break;
-			case 'urlError':
-			this.setState({
-				appState: 'error',
-				assetSrc: '#error'
-			});
-			break;
-			case 'CORSError':
-			this.setState({
-				appState: 'errorMaterial',
-				assetSrc: '#error-material'
-			});
-			break;
-			case 'default':
-			this.setState({
-				publicSrc: '',
-				appState: 'default',
-				assetSrc: '#tutorial'
-			});
-			break;
-			default:
-			this.setState({
-				publicSrc: '',
-				appState: 'default',
-				assetSrc: '#tutorial'
-			});
-			break;
-		}
-	}
-
 	render () {
 
 		let disabledPxFields = ( this.state.appState == 'preview' ) ? true : false ;
 		let lockedIcon = disabledPxFields ? "field-locked" : '' ;
 
 		return (
-			<main className={"page-wrapper " +  this.state.VRMode }>
+			<main className={this.state.VRMode }>
 				<GitHub />
 				<section className="overlay-content">
 					<form className="calculator">
@@ -253,7 +251,7 @@ class CurvedimageCalculator extends React.Component {
 								type='url'
 								onChange={this._setImageSrc.bind(this)}
 								label=' src="'
-								postfix={'"' + lockedIcon}
+								postfix='"'
 								value={ this.state.publicSrc }
 								placeholder='image-src' />
 							<CalculatorField
@@ -276,4 +274,4 @@ class CurvedimageCalculator extends React.Component {
 	}
 }
 
-ReactDOM.render(<CurvedimageCalculator/>, document.querySelector('.page-wrapper'));
+ReactDOM.render(<CurvedimageCalculator/>, document.querySelector('#page-wrapper'));
