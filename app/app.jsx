@@ -94,7 +94,7 @@ class CurvedimageCalculator extends React.Component {
     break;
     default:
     this.setState({
-      publicSrc: '',
+      publicSrc: ' ',
       appState: 'default',
       assetSrc: '#tutorial',
       deleteIcon: ''
@@ -155,11 +155,11 @@ _setImageSrc(e) {
     return;
   }
 
-  this._handleDefaultStates('loading', url);
-
   const url = e.target.value,
-  helperImg = new Image(),
-  _this = this;
+        helperImg = new Image(),
+        _this = this;
+
+  this._handleDefaultStates('loading', url);
 
   // echeck if the image can be loaded
   helperImg.addEventListener("load", function(){
