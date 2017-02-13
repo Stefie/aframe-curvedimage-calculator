@@ -1,103 +1,104 @@
 .calculator
-	background-color $colorPrimary
-	padding $layoutSpace $layoutSpaceHalf
-	position relative
-	z-index 100
-	width 100%
-	@media screen and (min-width: 560px)
-		padding  $layoutSpace
-		max-width 560px
-		margin 0 auto
+  background-color $colorPrimary
+  padding $layoutSpace $layoutSpaceHalf
+  position relative
+  z-index 100
+  width 100%
+  @media screen and (min-width: 560px)
+    padding  $layoutSpace
+    max-width 560px
+    margin 0 auto
 
-	.flex-wrapper
-		display flex
-		justify-content center
-		align-items center
-		+ .flex-wrapper
-			margin-top 2px
-		label
-			display inline-block
-		> div
-		> label
-			padding 0
-			flex 2 2
-			line-height: 24px
-			&:last-child
-				text-align left
-			&:first-child
-				text-align right
-			@media screen and (min-width: 560px)
-				line-height: 30px
-		input
-			font-family $fontFamiliyBase
-			font-weight 700
-			margin: 2px 0
-			padding 2px $layoutSpaceHalf
-			font-size 8px
-			line-height 12px
-			width 60px
-			background-color $colorWhite
-			border 1px solid rgba(0, 0, 0, 0.5)
-			color $colorBlack
-			&:disabled
-				color $colorSecondary
-			@media screen and (min-width: 375px)
-				font-size 10px
-				width 65px
-			@media screen and (min-width: 560px)
-				font-size 12px
-				line-height 16px
-				width 80px
+  .flex-wrapper
+    display flex
+    justify-content center
+    align-items center
+    + .flex-wrapper
+      margin-top 2px
+    label
+      display inline-block
+    > div
+    > label
+      padding 0
+      flex 2 2
+      line-height: 24px
+      &:last-child
+        text-align left
+      &:first-child
+        text-align right
+        @media screen and (min-width: 560px)
+          line-height: 30px
+    input
+      font-family $fontFamiliyBase
+      font-weight 700
+      margin: 2px 0
+      padding 2px $layoutSpaceHalf
+      font-size 8px
+      line-height 12px
+      width 60px
+      background-color $colorWhite
+      border 1px solid rgba(0, 0, 0, 0.5)
+      color $colorBlack
+      &:disabled
+        color $colorSecondary
+      @media screen and (min-width: 375px)
+        font-size 10px
+        width 65px
+      @media screen and (min-width: 560px)
+        font-size 12px
+        line-height 16px
+        width 80px
 
-	.field-wrapper
-		display flex
+  .field-wrapper
+    display flex
 
-	.calculator-fields
-		input
-			margin 0
-		.postfix
-			position relative
-			.icon-reset
-				cursor pointer
-				position absolute
-				color $colorHighlight
-				font-size 22px
-				top 6px
-				left 15px
+  .calculator-fields
+    input
+      margin 0
+    .postfix
+      position relative
+      .icon-reset
+        cursor pointer
+        position absolute
+        color $colorHighlight
+        font-size 22px
+        top 6px
+        left 15px
 
-	.source-fields
-		margin-bottom $layoutSpaceHalf
-		input
-			text-align center
-			font-size 12px
-			@media screen and (min-width: 560px)
-				font-size 14px
-				padding 12px 8px
-		label
-			position relative
-			color $colorSecondary
-			font-size 36px
-			padding: 2px $layoutSpace
-			@media screen and (min-width: 560px)
-				font-size 44px
-			&.field-locked:after
-				useIcon()
-				content "\e98f"
-				color $colorHighlight
-				font-size 15px
-				position absolute
-				right 14px
-				top 7px
-				@media screen and (min-width: 560px)
-					right 17px
-					top 9px
-		.field-wrapper
-			justify-content flex-end
-			&:last-child
-				flex-direction: row-reverse
-				.field-locked:after
-					right 25px
-					top 12px
-					@media screen and (min-width: 560px)
-						right 31px
-						top 15px
+  .source-fields
+    margin-bottom $layoutSpaceHalf
+    input
+      text-align center
+      font-size 12px
+      @media screen and (min-width: 560px)
+        font-size 14px
+        padding 12px 8px
+    label
+      position relative
+      color $colorSecondary
+      font-size 36px
+      padding: 2px $layoutSpace
+      @media screen and (min-width: 560px)
+        font-size 44px
+
+      &.field-locked:after
+        useIcon()
+        content "\e98f"
+        color $colorHighlight
+        font-size 15px
+        position absolute
+        right 14px
+        top 7px
+        @media screen and (min-width: 560px)
+          right 17px
+          top 9px
+    .field-wrapper
+      justify-content flex-end
+      &:last-child
+        flex-direction: row-reverse
+        .field-locked:after
+          right 25px
+          top 12px
+          @media screen and (min-width: 560px)
+            right 31px
+            top 15px
