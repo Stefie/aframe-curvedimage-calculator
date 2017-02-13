@@ -30,7 +30,7 @@
         line-height: 30px
     input
       font-family $fontFamiliyBase
-      font-weight 700
+      font-weight 500
       margin: 2px 0
       padding 2px $layoutSpaceHalf
       font-size 8px
@@ -40,6 +40,8 @@
       border 1px solid rgba(0, 0, 0, 0.5)
       color $colorBlack
       &:disabled
+        -webkit-text-fill-color $colorSecondary
+        -webkit-opacity 1
         color $colorSecondary
       @media screen and (min-width: 375px)
         font-size 10px
@@ -62,7 +64,7 @@
         position absolute
         color $colorHighlight
         font-size 22px
-        top 6px
+        top 4px
         left 15px
 
   .source-fields
