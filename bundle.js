@@ -8235,317 +8235,321 @@
 	var CSS = __webpack_require__(483);
 
 	var CurvedimageCalculator = function (_React$Component) {
-		_inherits(CurvedimageCalculator, _React$Component);
+	  _inherits(CurvedimageCalculator, _React$Component);
 
-		function CurvedimageCalculator(props) {
-			_classCallCheck(this, CurvedimageCalculator);
+	  function CurvedimageCalculator(props) {
+	    _classCallCheck(this, CurvedimageCalculator);
 
-			var _this2 = _possibleConstructorReturn(this, (CurvedimageCalculator.__proto__ || Object.getPrototypeOf(CurvedimageCalculator)).call(this, props));
+	    var _this2 = _possibleConstructorReturn(this, (CurvedimageCalculator.__proto__ || Object.getPrototypeOf(CurvedimageCalculator)).call(this, props));
 
-			_this2.state = {
-				assetCounter: 0,
-				appState: '',
-				wpx: '',
-				hpx: '',
-				ratio: '',
-				c: '',
-				h: '',
-				r: '',
-				thetaLength: '',
-				thetaStart: '',
-				assetSrc: '',
-				publicSrc: '',
-				VRMode: '',
-				deleteIcon: ''
-			};
-			_this2._handleDefaultStates = _this2._handleDefaultStates.bind(_this2);
-			// TODO's:
-			// delete url -> reset button
-			return _this2;
-		}
+	    _this2.state = {
+	      assetCounter: 0,
+	      appState: '',
+	      wpx: '',
+	      hpx: '',
+	      ratio: '',
+	      c: '',
+	      h: '',
+	      r: '',
+	      thetaLength: '',
+	      thetaStart: '',
+	      assetSrc: '',
+	      publicSrc: '',
+	      VRMode: '',
+	      deleteIcon: ''
+	    };
+	    _this2._handleDefaultStates = _this2._handleDefaultStates.bind(_this2);
+	    return _this2;
+	  }
 
-		_createClass(CurvedimageCalculator, [{
-			key: 'componentWillMount',
-			value: function componentWillMount() {
-				this._handleDefaultStates('default');
-			}
-		}, {
-			key: 'componentDidMount',
-			value: function componentDidMount() {
-				var aScene = document.querySelector('a-scene'),
-				    _this = this;
+	  _createClass(CurvedimageCalculator, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._handleDefaultStates('default');
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var aScene = document.querySelector('a-scene'),
+	          _this = this;
 
-				aScene.addEventListener('enter-vr', function () {
-					_this.setState({
-						VRMode: 'in-vr-mode'
-					});
-				});
-				aScene.addEventListener('exit-vr', function () {
-					_this.setState({
-						VRMode: ''
-					});
-				});
-			}
-		}, {
-			key: '_handleDefaultStates',
-			value: function _handleDefaultStates(type, url) {
-				var c = 5 * 2 * Math.PI;
-				this.setState({
-					wpx: '2048',
-					hpx: '1024',
-					thetaLength: '90',
-					thetaStart: '135',
-					ratio: '2',
-					r: '5',
-					c: +c.toFixed(4),
-					h: +(90 / 360 * (c / (2048 / 1024))).toFixed(4)
-				});
-				switch (type) {
-					case 'loading':
-						this.setState({
-							appState: 'loading',
-							publicSrc: url,
-							assetSrc: '#loading',
-							deleteIcon: _react2.default.createElement('span', { className: 'icon-reset', onClick: this._deleteImageSource.bind(this) })
-						});
-						break;
-					case 'urlError':
-						this.setState({
-							appState: 'error',
-							assetSrc: '#error'
-						});
-						break;
-					case 'CORSError':
-						this.setState({
-							appState: 'errorMaterial',
-							assetSrc: '#error-material'
-						});
-						break;
-					case 'default':
-						this.setState({
-							publicSrc: '',
-							appState: 'default',
-							assetSrc: '#tutorial',
-							deleteIcon: ''
-						});
-						break;
-					default:
-						this.setState({
-							publicSrc: '',
-							appState: 'default',
-							assetSrc: '#tutorial',
-							deleteIcon: ''
-						});
-						break;
-				}
-			}
-		}, {
-			key: '_changeWpx',
-			value: function _changeWpx(e) {
-				var wpx = e.target.value;
-				this.setState({
-					wpx: wpx,
-					ratio: +(wpx / this.state.hpx).toFixed(4),
-					h: +(this.state.thetaLength / 360 * (this.state.c / (wpx / this.state.hpx))).toFixed(4),
-					publicSrc: '',
-					assetSrc: '#free',
-					appState: 'free',
-					deleteIcon: ''
-				});
-			}
-		}, {
-			key: '_changeHpx',
-			value: function _changeHpx(e) {
-				var hpx = e.target.value;
-				this.setState({
-					hpx: hpx,
-					ratio: +(this.state.wpx / hpx).toFixed(4),
-					h: +(this.state.thetaLength / 360 * (this.state.c / (this.state.wpx / hpx))).toFixed(4),
-					publicSrc: '',
-					assetSrc: '#free',
-					appState: 'free',
-					deleteIcon: ''
-				});
-			}
-		}, {
-			key: '_changeHeight',
-			value: function _changeHeight(e) {
-				var thetaLength = e.target.value * 360 / (this.state.c / this.state.ratio);
-				this.setState({
-					h: e.target.value,
-					thetaLength: +thetaLength.toFixed(4),
-					thetaStart: +(180 - thetaLength / 2).toFixed(4)
-				});
-			}
-		}, {
-			key: '_changeRadius',
-			value: function _changeRadius(e) {
-				var c = e.target.value * 2 * Math.PI;
-				this.setState({
-					c: +c.toFixed(4),
-					r: e.target.value,
-					h: +(c * this.state.thetaLength / 360 / this.state.ratio).toFixed(4)
-				});
-			}
-		}, {
-			key: '_changeThetaLength',
-			value: function _changeThetaLength(e) {
-				this.setState({
-					thetaLength: e.target.value,
-					h: +(this.state.c * e.target.value / 360 / this.state.ratio).toFixed(4),
-					thetaStart: +(180 - e.target.value / 2).toFixed(4)
-				});
-			}
-		}, {
-			key: '_setImageSrc',
-			value: function _setImageSrc(e) {
-				if (!e.target.value) {
-					this._handleDefaultStates('default');
-					return;
-				}
+	      aScene.addEventListener('enter-vr', function () {
+	        _this.setState({
+	          VRMode: 'in-vr-mode'
+	        });
+	      });
+	      aScene.addEventListener('exit-vr', function () {
+	        _this.setState({
+	          VRMode: ''
+	        });
+	      });
+	    }
+	  }, {
+	    key: '_handleDefaultStates',
+	    value: function _handleDefaultStates(type, url) {
+	      var c = 5 * 2 * Math.PI;
+	      this.setState({
+	        wpx: '2048',
+	        hpx: '1024',
+	        thetaLength: '90',
+	        thetaStart: '135',
+	        ratio: '2',
+	        r: '5',
+	        c: +c.toFixed(4),
+	        h: +(90 / 360 * (c / (2048 / 1024))).toFixed(4)
+	      });
+	      switch (type) {
+	        case 'loading':
+	          this.setState({
+	            appState: 'loading',
+	            publicSrc: url,
+	            assetSrc: '#loading',
+	            deleteIcon: _react2.default.createElement('span', {
+	              className: 'icon-reset',
+	              onClick: this._deleteImageSource.bind(this) })
+	          });
+	          break;
+	        case 'urlError':
+	          this.setState({
+	            appState: 'error',
+	            assetSrc: '#error'
+	          });
+	          break;
+	        case 'CORSError':
+	          this.setState({
+	            appState: 'errorMaterial',
+	            assetSrc: '#error-material'
+	          });
+	          break;
+	        case 'default':
+	          this.setState({
+	            publicSrc: '',
+	            appState: 'default',
+	            assetSrc: '#tutorial',
+	            deleteIcon: ''
+	          });
+	          break;
+	        default:
+	          this.setState({
+	            publicSrc: ' ',
+	            appState: 'default',
+	            assetSrc: '#tutorial',
+	            deleteIcon: ''
+	          });
+	          break;
+	      }
+	    }
+	  }, {
+	    key: '_changeWpx',
+	    value: function _changeWpx(e) {
+	      var wpx = e.target.value;
+	      this.setState({
+	        wpx: wpx,
+	        ratio: +(wpx / this.state.hpx).toFixed(4),
+	        h: +(this.state.thetaLength / 360 * (this.state.c / (wpx / this.state.hpx))).toFixed(4),
+	        publicSrc: '',
+	        assetSrc: '#free',
+	        appState: 'free',
+	        deleteIcon: ''
+	      });
+	    }
+	  }, {
+	    key: '_changeHpx',
+	    value: function _changeHpx(e) {
+	      var hpx = e.target.value;
+	      this.setState({
+	        hpx: hpx,
+	        ratio: +(this.state.wpx / hpx).toFixed(4),
+	        h: +(this.state.thetaLength / 360 * (this.state.c / (this.state.wpx / hpx))).toFixed(4),
+	        publicSrc: '',
+	        assetSrc: '#free',
+	        appState: 'free',
+	        deleteIcon: ''
+	      });
+	    }
+	  }, {
+	    key: '_changeHeight',
+	    value: function _changeHeight(e) {
+	      var thetaLength = e.target.value * 360 / (this.state.c / this.state.ratio);
+	      this.setState({
+	        h: e.target.value,
+	        thetaLength: +thetaLength.toFixed(4),
+	        thetaStart: +(180 - thetaLength / 2).toFixed(4)
+	      });
+	    }
+	  }, {
+	    key: '_changeRadius',
+	    value: function _changeRadius(e) {
+	      var c = e.target.value * 2 * Math.PI;
+	      this.setState({
+	        c: +c.toFixed(4),
+	        r: e.target.value,
+	        h: +(c * this.state.thetaLength / 360 / this.state.ratio).toFixed(4)
+	      });
+	    }
+	  }, {
+	    key: '_changeThetaLength',
+	    value: function _changeThetaLength(e) {
+	      this.setState({
+	        thetaLength: e.target.value,
+	        h: +(this.state.c * e.target.value / 360 / this.state.ratio).toFixed(4),
+	        thetaStart: +(180 - e.target.value / 2).toFixed(4)
+	      });
+	    }
+	  }, {
+	    key: '_setImageSrc',
+	    value: function _setImageSrc(e) {
+	      if (!e.target.value) {
+	        this._handleDefaultStates('default');
+	        return;
+	      }
 
-				this._handleDefaultStates('loading', url);
+	      var url = e.target.value,
+	          helperImg = new Image(),
+	          _this = this;
 
-				var url = e.target.value,
-				    helperImg = new Image(),
-				    _this = this;
+	      this._handleDefaultStates('loading', url);
 
-				// echeck if the image can be loaded
-				helperImg.addEventListener("load", function () {
-					var imgWidth = this.naturalWidth,
-					    imgHeight = this.naturalHeight,
-					    assets = document.querySelector('a-assets'),
-					    asset = document.createElement('a-asset-item'),
-					    assetId = _this.state.assetCounter + 1;
+	      // echeck if the image can be loaded
+	      helperImg.addEventListener("load", function () {
+	        var imgWidth = this.naturalWidth,
+	            imgHeight = this.naturalHeight,
+	            assets = document.querySelector('a-assets'),
+	            asset = document.createElement('a-asset-item'),
+	            assetId = _this.state.assetCounter + 1;
 
-					asset.id = 'asset-' + assetId;
-					asset.setAttribute('src', url);
+	        asset.id = 'asset-' + assetId;
+	        asset.setAttribute('src', url);
 
-					// listen to THREE.FileLoader error / loaded events for a-asset-item
-					asset.addEventListener("error", function (err) {
-						assets.removeChild(asset);
-						_this._handleDefaultStates('CORSError');
-					});
+	        // listen to THREE.FileLoader error / loaded events for a-asset-item
+	        asset.addEventListener("error", function (err) {
+	          assets.removeChild(asset);
+	          _this._handleDefaultStates('CORSError');
+	        });
 
-					asset.addEventListener("loaded", function () {
-						_this.setState({
-							appState: 'preview',
-							assetCounter: assetId,
-							assetSrc: url,
-							wpx: imgWidth,
-							hpx: imgHeight,
-							ratio: +(imgWidth / imgHeight).toFixed(4),
-							h: +(_this.state.thetaLength / 360 * (_this.state.c / (imgWidth / imgHeight))).toFixed(4)
-						});
-					});
+	        asset.addEventListener("loaded", function () {
+	          _this.setState({
+	            appState: 'preview',
+	            assetCounter: assetId,
+	            assetSrc: url,
+	            wpx: imgWidth,
+	            hpx: imgHeight,
+	            ratio: +(imgWidth / imgHeight).toFixed(4),
+	            h: +(_this.state.thetaLength / 360 * (_this.state.c / (imgWidth / imgHeight))).toFixed(4)
+	          });
+	        });
 
-					assets.appendChild(asset);
-				}, false);
+	        assets.appendChild(asset);
+	      }, false);
 
-				helperImg.addEventListener('error', function () {
-					_this._handleDefaultStates('urlError');
-				}, false);
+	      helperImg.addEventListener('error', function () {
+	        _this._handleDefaultStates('urlError');
+	      }, false);
 
-				helperImg.src = url;
-			}
-		}, {
-			key: '_deleteImageSource',
-			value: function _deleteImageSource(e) {
-				this._handleDefaultStates('default');
-			}
-		}, {
-			key: 'render',
-			value: function render() {
+	      helperImg.src = url;
+	    }
+	  }, {
+	    key: '_deleteImageSource',
+	    value: function _deleteImageSource(e) {
+	      this._handleDefaultStates('default');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
 
-				var disabledPxFields = this.state.appState == 'preview' ? true : false;
-				var lockedIcon = disabledPxFields ? "field-locked" : '';
+	      var disabledPxFields = this.state.appState == 'preview' ? true : false;
+	      var lockedIcon = disabledPxFields ? "field-locked" : '';
 
-				return _react2.default.createElement(
-					'main',
-					{ className: this.state.VRMode },
-					_react2.default.createElement(_githubLink2.default, null),
-					_react2.default.createElement(
-						'section',
-						{ className: 'overlay-content' },
-						_react2.default.createElement(
-							'form',
-							{ className: 'calculator' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'source-fields flex-wrapper' },
-								_react2.default.createElement(
-									'div',
-									{ className: 'field-wrapper' },
-									_react2.default.createElement('label', { className: "icon-icon-width " + lockedIcon, 'aria-label': 'image-width' }),
-									_react2.default.createElement('input', {
-										type: 'number',
-										value: this.state.wpx,
-										onChange: this._changeWpx.bind(this),
-										placeholder: 'image-width',
-										min: '0',
-										disabled: disabledPxFields })
-								),
-								_react2.default.createElement(
-									'div',
-									{ className: 'field-wrapper' },
-									_react2.default.createElement('label', { className: "icon-icon-height " + lockedIcon, 'aria-label': 'image-height' }),
-									_react2.default.createElement('input', {
-										type: 'number',
-										value: this.state.hpx,
-										onChange: this._changeHpx.bind(this),
-										placeholder: 'image-height',
-										min: '0',
-										disabled: disabledPxFields })
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'calculator-fields' },
-								_react2.default.createElement(_calculatorField2.default, {
-									onChange: this._changeHeight.bind(this),
-									label: '<a-curvedimage height="',
-									postfix: '"',
-									value: this.state.h,
-									placeholder: 'height' }),
-								_react2.default.createElement(_calculatorField2.default, {
-									onChange: this._changeThetaLength.bind(this),
-									label: ' theta-length="',
-									postfix: '"',
-									value: this.state.thetaLength,
-									placeholder: 'theta-length',
-									max: '360.0000' }),
-								_react2.default.createElement(_calculatorField2.default, {
-									onChange: this._changeRadius.bind(this),
-									label: ' radius="',
-									postfix: '"',
-									value: this.state.r,
-									placeholder: 'radius' }),
-								_react2.default.createElement(_calculatorField2.default, {
-									type: 'url',
-									onChange: this._setImageSrc.bind(this),
-									label: ' src="',
-									postfix: '"',
-									value: this.state.publicSrc,
-									placeholder: 'image-src',
-									deleteIcon: this.state.deleteIcon }),
-								_react2.default.createElement(_calculatorField2.default, {
-									onChange: this._changeHeight.bind(this),
-									label: ' theta-start="',
-									postfix: '"></a-curvedimage>',
-									value: this.state.thetaStart,
-									placeholder: 'theta-start',
-									max: '360.0000',
-									disabled: 'true' })
-							)
-						)
-					),
-					_react2.default.createElement(_calculatorPreview2.default, this.state),
-					_react2.default.createElement(_footer2.default, null)
-				);
-			}
-		}]);
+	      return _react2.default.createElement(
+	        'main',
+	        { className: this.state.VRMode },
+	        _react2.default.createElement(_githubLink2.default, null),
+	        _react2.default.createElement(
+	          'section',
+	          { className: 'overlay-content' },
+	          _react2.default.createElement(
+	            'form',
+	            { className: 'calculator' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'source-fields flex-wrapper' },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'field-wrapper' },
+	                _react2.default.createElement('label', {
+	                  className: "icon-icon-width " + lockedIcon,
+	                  'aria-label': 'image-width' }),
+	                _react2.default.createElement('input', {
+	                  type: 'number',
+	                  value: this.state.wpx,
+	                  onChange: this._changeWpx.bind(this),
+	                  placeholder: 'image-width',
+	                  min: '0',
+	                  disabled: disabledPxFields })
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'field-wrapper' },
+	                _react2.default.createElement('label', {
+	                  className: "icon-icon-height " + lockedIcon,
+	                  'aria-label': 'image-height' }),
+	                _react2.default.createElement('input', {
+	                  type: 'number',
+	                  value: this.state.hpx,
+	                  onChange: this._changeHpx.bind(this),
+	                  placeholder: 'image-height',
+	                  min: '0',
+	                  disabled: disabledPxFields })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'calculator-fields' },
+	              _react2.default.createElement(_calculatorField2.default, {
+	                onChange: this._changeHeight.bind(this),
+	                label: '<a-curvedimage height="',
+	                postfix: '"',
+	                value: this.state.h,
+	                placeholder: 'height' }),
+	              _react2.default.createElement(_calculatorField2.default, {
+	                onChange: this._changeThetaLength.bind(this),
+	                label: ' theta-length="',
+	                postfix: '"',
+	                value: this.state.thetaLength,
+	                placeholder: 'theta-length',
+	                max: '360.0000' }),
+	              _react2.default.createElement(_calculatorField2.default, {
+	                onChange: this._changeRadius.bind(this),
+	                label: ' radius="',
+	                postfix: '"',
+	                value: this.state.r,
+	                placeholder: 'radius' }),
+	              _react2.default.createElement(_calculatorField2.default, {
+	                type: 'url',
+	                onChange: this._setImageSrc.bind(this),
+	                label: ' src="',
+	                postfix: '"',
+	                value: this.state.publicSrc,
+	                placeholder: 'image-src',
+	                deleteIcon: this.state.deleteIcon }),
+	              _react2.default.createElement(_calculatorField2.default, {
+	                onChange: this._changeHeight.bind(this),
+	                label: ' theta-start="',
+	                postfix: '"></a-curvedimage>',
+	                value: this.state.thetaStart,
+	                placeholder: 'theta-start',
+	                max: '360.0000',
+	                disabled: 'true' })
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(_calculatorPreview2.default, this.state),
+	        _react2.default.createElement(_footer2.default, { appState: this.state.appState })
+	      );
+	    }
+	  }]);
 
-		return CurvedimageCalculator;
+	  return CurvedimageCalculator;
 	}(_react2.default.Component);
 
 	_reactDom2.default.render(_react2.default.createElement(CurvedimageCalculator, null), document.querySelector('#page-wrapper'));
@@ -109637,7 +109641,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -109661,59 +109665,59 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var CalculatorField = function (_React$Component) {
-		_inherits(CalculatorField, _React$Component);
+	  _inherits(CalculatorField, _React$Component);
 
-		function CalculatorField(props) {
-			_classCallCheck(this, CalculatorField);
+	  function CalculatorField(props) {
+	    _classCallCheck(this, CalculatorField);
 
-			return _possibleConstructorReturn(this, (CalculatorField.__proto__ || Object.getPrototypeOf(CalculatorField)).call(this, props));
-		}
+	    return _possibleConstructorReturn(this, (CalculatorField.__proto__ || Object.getPrototypeOf(CalculatorField)).call(this, props));
+	  }
 
-		_createClass(CalculatorField, [{
-			key: '_handleFocus',
-			value: function _handleFocus(e) {
-				e.target.select();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var opts = {};
-				opts['min'] = !this.props.type ? '0.0000' : '';
+	  _createClass(CalculatorField, [{
+	    key: '_handleFocus',
+	    value: function _handleFocus(e) {
+	      e.target.select();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var opts = {};
+	      opts['min'] = !this.props.type ? '0.0000' : '';
 
-				return _react2.default.createElement(
-					'div',
-					{ className: 'flex-wrapper' },
-					_react2.default.createElement(
-						'label',
-						null,
-						this.props.label
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'field-wrapper' },
-						_react2.default.createElement('input', _extends({
-							type: this.props.type ? this.props.type : 'number',
-							onFocus: this._handleFocus.bind(this),
-							onChange: this.props.onChange,
-							value: this.props.value,
-							placeholder: this.props.placeholder,
-							max: this.props.max,
-							disabled: this.props.disabled
-						}, opts)),
-						_react2.default.createElement(
-							'span',
-							{ className: 'postfix' },
-							this.props.postfix,
-							' ',
-							this.props.deleteIcon,
-							' '
-						)
-					)
-				);
-			}
-		}]);
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'flex-wrapper' },
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          this.props.label
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'field-wrapper' },
+	          _react2.default.createElement('input', _extends({
+	            type: this.props.type ? this.props.type : 'number',
+	            onFocus: this._handleFocus.bind(this),
+	            onChange: this.props.onChange,
+	            value: this.props.value,
+	            placeholder: this.props.placeholder,
+	            max: this.props.max,
+	            disabled: this.props.disabled
+	          }, opts)),
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'postfix' },
+	            this.props.postfix,
+	            ' ',
+	            this.props.deleteIcon,
+	            ' '
+	          )
+	        )
+	      );
+	    }
+	  }]);
 
-		return CalculatorField;
+	  return CalculatorField;
 	}(_react2.default.Component);
 
 	exports.default = CalculatorField;
@@ -109725,7 +109729,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -109751,71 +109755,71 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var CalculatorPreview = function (_React$Component) {
-		_inherits(CalculatorPreview, _React$Component);
+	  _inherits(CalculatorPreview, _React$Component);
 
-		function CalculatorPreview(props) {
-			_classCallCheck(this, CalculatorPreview);
+	  function CalculatorPreview(props) {
+	    _classCallCheck(this, CalculatorPreview);
 
-			return _possibleConstructorReturn(this, (CalculatorPreview.__proto__ || Object.getPrototypeOf(CalculatorPreview)).call(this, props));
-		}
+	    return _possibleConstructorReturn(this, (CalculatorPreview.__proto__ || Object.getPrototypeOf(CalculatorPreview)).call(this, props));
+	  }
 
-		_createClass(CalculatorPreview, [{
-			key: 'render',
-			value: function render() {
-				var loading = this.props.appState == 'loading' ? 'true' : 'false';
-				return _react2.default.createElement(
-					_aframeReact.Scene,
-					null,
-					_react2.default.createElement(
-						'a-assets',
-						null,
-						_react2.default.createElement('img', { src: './app/assets/images/tutorial.png', id: 'tutorial' }),
-						_react2.default.createElement('img', { src: './app/assets/images/error.png', id: 'error' }),
-						_react2.default.createElement('img', { src: './app/assets/images/error-material.png', id: 'error-material' }),
-						_react2.default.createElement('img', { src: './app/assets/images/loading.png', id: 'loading' }),
-						_react2.default.createElement('img', { src: './app/assets/images/free.png', id: 'free' })
-					),
-					_react2.default.createElement(
-						_aframeReact.Entity,
-						{ id: 'preview-wrapper', position: '0 1 0' },
-						_react2.default.createElement(_aframeReact.Entity, { id: 'curvedimage-preview',
-							material: {
-								side: 'double',
-								transparent: 'true',
-								shader: 'flat',
-								repeat: '-1 1',
-								src: this.props.assetSrc
-							},
-							geometry: {
-								primitive: 'cylinder',
-								openEnded: true,
-								segmentsRadial: 96,
-								thetaLength: this.props.thetaLength,
-								thetaStart: this.props.thetaStart,
-								radius: this.props.r,
-								height: this.props.h } })
-					),
-					_react2.default.createElement(_aframeReact.Entity, { id: 'sky', primitive: 'a-sky', material: { color: '#f0f0f0' } }),
-					_react2.default.createElement(
-						_aframeReact.Entity,
-						{
-							text: 'value: loading...; color: #21897C; align: center;  width: 20;',
-							position: '0 1.2 -3',
-							visible: loading },
-						_react2.default.createElement('a-animation', {
-							attribute: 'scale',
-							easing: 'linear',
-							dur: '800',
-							direction: 'alternate',
-							repeat: 'indefinite',
-							from: '1 1  1',
-							to: '1.05 1.05 1' })
-					)
-				);
-			}
-		}]);
+	  _createClass(CalculatorPreview, [{
+	    key: 'render',
+	    value: function render() {
+	      var loading = this.props.appState == 'loading' ? 'true' : 'false';
+	      return _react2.default.createElement(
+	        _aframeReact.Scene,
+	        null,
+	        _react2.default.createElement(
+	          'a-assets',
+	          null,
+	          _react2.default.createElement('img', { src: './app/assets/images/tutorial.png', id: 'tutorial' }),
+	          _react2.default.createElement('img', { src: './app/assets/images/error.png', id: 'error' }),
+	          _react2.default.createElement('img', { src: './app/assets/images/error-material.png', id: 'error-material' }),
+	          _react2.default.createElement('img', { src: './app/assets/images/loading.png', id: 'loading' }),
+	          _react2.default.createElement('img', { src: './app/assets/images/free.png', id: 'free' })
+	        ),
+	        _react2.default.createElement(
+	          _aframeReact.Entity,
+	          { id: 'preview-wrapper', position: '0 1 0' },
+	          _react2.default.createElement(_aframeReact.Entity, { id: 'curvedimage-preview',
+	            material: {
+	              side: 'double',
+	              transparent: 'true',
+	              shader: 'flat',
+	              repeat: '-1 1',
+	              src: this.props.assetSrc
+	            },
+	            geometry: {
+	              primitive: 'cylinder',
+	              openEnded: true,
+	              segmentsRadial: 96,
+	              thetaLength: this.props.thetaLength,
+	              thetaStart: this.props.thetaStart,
+	              radius: this.props.r,
+	              height: this.props.h } })
+	        ),
+	        _react2.default.createElement(_aframeReact.Entity, { id: 'sky', primitive: 'a-sky', material: { color: '#f0f0f0' } }),
+	        _react2.default.createElement(
+	          _aframeReact.Entity,
+	          {
+	            text: 'value: loading...; color: #21897C; align: center;  width: 20;',
+	            position: '0 1.2 -3',
+	            visible: loading },
+	          _react2.default.createElement('a-animation', {
+	            attribute: 'scale',
+	            easing: 'linear',
+	            dur: '800',
+	            direction: 'alternate',
+	            repeat: 'indefinite',
+	            from: '1 1  1',
+	            to: '1.05 1.05 1' })
+	        )
+	      );
+	    }
+	  }]);
 
-		return CalculatorPreview;
+	  return CalculatorPreview;
 	}(_react2.default.Component);
 
 	exports.default = CalculatorPreview;
@@ -109827,7 +109831,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -109849,36 +109853,48 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Footer = function (_React$Component) {
-		_inherits(Footer, _React$Component);
+	  _inherits(Footer, _React$Component);
 
-		function Footer(props) {
-			_classCallCheck(this, Footer);
+	  function Footer(props) {
+	    _classCallCheck(this, Footer);
 
-			return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).call(this, props));
-		}
+	    return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).call(this, props));
+	  }
 
-		_createClass(Footer, [{
-			key: 'render',
-			value: function render() {
-				var loading = this.props.appState == 'loading' ? 'true' : 'false';
-				return _react2.default.createElement(
-					'footer',
-					{ className: 'page-footer overlay-content ' },
-					_react2.default.createElement(
-						'h2',
-						{ className: 'footer-content' },
-						'Curvedimage Calculator - A Helper App for ',
-						_react2.default.createElement(
-							'a',
-							{ href: 'https://aframe.io/docs/0.5.0/primitives/a-curvedimage.html', target: 'blank', title: 'A-Frame Docs:  a-curvedimage' },
-							'A-Frame\'s <a-curvedimage> component'
-						)
-					)
-				);
-			}
-		}]);
+	  _createClass(Footer, [{
+	    key: 'render',
+	    value: function render() {
+	      var helpLinks = null;
+	      if (this.props.appState == 'errorMaterial') {
+	        helpLinks = _react2.default.createElement(
+	          'div',
+	          { className: 'help-links' },
+	          _react2.default.createElement(
+	            'a',
+	            { href: 'https://aframe.io/docs/0.5.0/introduction/faq.html#why-does-my-asset-e-g-image-video-model-not-load', target: 'blank', title: 'Visit A-Frame\'s FAQ' },
+	            'Read more about missing CORS headers'
+	          )
+	        );
+	      }
+	      return _react2.default.createElement(
+	        'footer',
+	        { className: 'page-footer overlay-content ' },
+	        helpLinks,
+	        _react2.default.createElement(
+	          'h2',
+	          { className: 'footer-content' },
+	          'Curvedimage Calculator - A Helper App for ',
+	          _react2.default.createElement(
+	            'a',
+	            { href: 'https://aframe.io/docs/0.5.0/primitives/a-curvedimage.html', target: 'blank', title: 'A-Frame Docs:  a-curvedimage' },
+	            'A-Frame\'s <a-curvedimage> component'
+	          )
+	        )
+	      );
+	    }
+	  }]);
 
-		return Footer;
+	  return Footer;
 	}(_react2.default.Component);
 
 	exports.default = Footer;
@@ -109890,7 +109906,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -109912,31 +109928,31 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var GitHub = function (_React$Component) {
-		_inherits(GitHub, _React$Component);
+	  _inherits(GitHub, _React$Component);
 
-		function GitHub(props) {
-			_classCallCheck(this, GitHub);
+	  function GitHub(props) {
+	    _classCallCheck(this, GitHub);
 
-			return _possibleConstructorReturn(this, (GitHub.__proto__ || Object.getPrototypeOf(GitHub)).call(this, props));
-		}
+	    return _possibleConstructorReturn(this, (GitHub.__proto__ || Object.getPrototypeOf(GitHub)).call(this, props));
+	  }
 
-		_createClass(GitHub, [{
-			key: 'render',
-			value: function render() {
-				var loading = this.props.appState == 'loading' ? 'true' : 'false';
-				return _react2.default.createElement(
-					'section',
-					{ className: 'overlay-content github-link' },
-					_react2.default.createElement(
-						'a',
-						{ href: 'https://github.com/Stefie/aframe-curvedimage-calculator', target: 'blank', title: 'View on GitHub' },
-						_react2.default.createElement('span', { className: 'icon-github' })
-					)
-				);
-			}
-		}]);
+	  _createClass(GitHub, [{
+	    key: 'render',
+	    value: function render() {
+	      var loading = this.props.appState == 'loading' ? 'true' : 'false';
+	      return _react2.default.createElement(
+	        'section',
+	        { className: 'overlay-content github-link' },
+	        _react2.default.createElement(
+	          'a',
+	          { href: 'https://github.com/Stefie/aframe-curvedimage-calculator', target: 'blank', title: 'View on GitHub' },
+	          _react2.default.createElement('span', { className: 'icon-github' })
+	        )
+	      );
+	    }
+	  }]);
 
-		return GitHub;
+	  return GitHub;
 	}(_react2.default.Component);
 
 	exports.default = GitHub;
@@ -109976,7 +109992,7 @@
 
 
 	// module
-	exports.push([module.id, "html,\nbody,\ndiv,\nspan,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\nabbr,\naddress,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\nsamp,\nsmall,\nstrong,\nsub,\nsup,\nvar,\nb,\ni,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: 0;\n  font-size: 100%;\n  vertical-align: baseline;\n  background: transparent;\n  box-sizing: border-box;\n}\nbody {\n  line-height: 1;\n}\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block;\n}\nnav ul {\n  list-style: none;\n}\nblockquote,\nq {\n  quotes: none;\n}\nblockquote:before,\nq:before,\nblockquote:after,\nq:after {\n  content: '';\n  content: none;\n}\na {\n  margin: 0;\n  padding: 0;\n  font-size: 100%;\n  vertical-align: baseline;\n  background: transparent;\n}\ndel {\n  text-decoration: line-through;\n}\nabbr[title],\ndfn[title] {\n  border-bottom: 1px dotted;\n  cursor: help;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ninput,\nselect {\n  vertical-align: middle;\n}\n@font-face {\n  font-family: 'Roboto Mono';\n  font-style: normal;\n  font-weight: 500;\n  src: local('Roboto Mono Medium'), local('RobotoMono-Medium'), url(" + __webpack_require__(486) + ") format('woff2'), url(" + __webpack_require__(487) + ") format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */\n}\nbody {\n  background-color: #f0f0f0;\n  color: #f0f0f0;\n  font-family: 'Roboto Mono', monospace;\n  font-weight: 500;\n  font-size: 8px;\n}\n@media screen and (min-width: 375px) {\n  body {\n    font-size: 10px;\n  }\n}\n@media screen and (min-width: 560px) {\n  body {\n    font-size: 16px;\n  }\n}\nmain,\n#page-wrapper {\n  height: 100%;\n}\n.overlay-content {\n  text-align: center;\n  position: absolute;\n  width: 100%;\n}\n.in-vr-mode .overlay-content {\n  display: none;\n}\n.page-footer {\n  bottom: 0;\n}\nh1 {\n  font-size: 24px;\n  text-align: center;\n  margin: 5px;\n  text-transform: uppercase;\n}\na,\na:focus,\na:visited {\n  color: #333;\n}\na:hover {\n  color: #ef2d5e;\n}\n.calculator {\n  background-color: #ef2d5e;\n  padding: 10px 5px;\n  position: relative;\n  z-index: 100;\n  width: 100%;\n}\n@media screen and (min-width: 560px) {\n  .calculator {\n    padding: 10px;\n    max-width: 560px;\n    margin: 0 auto;\n  }\n}\n.calculator .flex-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.calculator .flex-wrapper + .flex-wrapper {\n  margin-top: 2px;\n}\n.calculator .flex-wrapper label {\n  display: inline-block;\n}\n.calculator .flex-wrapper > div,\n.calculator .flex-wrapper > label {\n  padding: 0;\n  -webkit-box-flex: 2;\n      -ms-flex: 2 2;\n          flex: 2 2;\n  line-height: 24px;\n}\n.calculator .flex-wrapper > div:last-child,\n.calculator .flex-wrapper > label:last-child {\n  text-align: left;\n}\n.calculator .flex-wrapper > div:first-child,\n.calculator .flex-wrapper > label:first-child {\n  text-align: right;\n}\n@media screen and (min-width: 560px) {\n  .calculator .flex-wrapper > div,\n  .calculator .flex-wrapper > label {\n    line-height: 30px;\n  }\n}\n.calculator .flex-wrapper input {\n  font-family: 'Roboto Mono', monospace;\n  font-weight: 700;\n  margin: 2px 0;\n  padding: 2px 5px;\n  font-size: 8px;\n  line-height: 12px;\n  width: 60px;\n  background-color: #f0f0f0;\n  border: 1px solid rgba(0,0,0,0.5);\n  color: #333;\n}\n.calculator .flex-wrapper input:disabled {\n  color: #21897c;\n}\n@media screen and (min-width: 375px) {\n  .calculator .flex-wrapper input {\n    font-size: 10px;\n    width: 65px;\n  }\n}\n@media screen and (min-width: 560px) {\n  .calculator .flex-wrapper input {\n    font-size: 12px;\n    line-height: 16px;\n    width: 80px;\n  }\n}\n.calculator .field-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.calculator .calculator-fields input {\n  margin: 0;\n}\n.calculator .calculator-fields .postfix {\n  position: relative;\n}\n.calculator .calculator-fields .postfix .icon-reset {\n  cursor: pointer;\n  position: absolute;\n  color: #f2e646;\n  font-size: 22px;\n  top: 6px;\n  left: 15px;\n}\n.calculator .source-fields {\n  margin-bottom: 5px;\n}\n.calculator .source-fields input {\n  text-align: center;\n  font-size: 12px;\n}\n@media screen and (min-width: 560px) {\n  .calculator .source-fields input {\n    font-size: 14px;\n    padding: 12px 8px;\n  }\n}\n.calculator .source-fields label {\n  position: relative;\n  color: #21897c;\n  font-size: 36px;\n  padding: 2px 10px;\n}\n@media screen and (min-width: 560px) {\n  .calculator .source-fields label {\n    font-size: 44px;\n  }\n}\n.calculator .source-fields label.field-locked:after {\n  font-family: 'calculator' !important;\n  line-height: 1;\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  content: \"\\E98F\";\n  color: #f2e646;\n  font-size: 15px;\n  position: absolute;\n  right: 14px;\n  top: 7px;\n}\n@media screen and (min-width: 560px) {\n  .calculator .source-fields label.field-locked:after {\n    right: 17px;\n    top: 9px;\n  }\n}\n.calculator .source-fields .field-wrapper {\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\n.calculator .source-fields .field-wrapper:last-child {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: reverse;\n      -ms-flex-direction: row-reverse;\n          flex-direction: row-reverse;\n}\n.calculator .source-fields .field-wrapper:last-child .field-locked:after {\n  right: 25px;\n  top: 12px;\n}\n@media screen and (min-width: 560px) {\n  .calculator .source-fields .field-wrapper:last-child .field-locked:after {\n    right: 31px;\n    top: 15px;\n  }\n}\n@font-face {\n  font-family: 'calculator';\n  src: url(" + __webpack_require__(488) + ") format('truetype'), url(" + __webpack_require__(489) + ") format('woff'), url(" + __webpack_require__(490) + "#calculator) format('svg');\n  font-weight: normal;\n  font-style: normal;\n}\n[class^=\"icon-\"],\n[class*=\" icon-\"] {\n  font-family: 'calculator' !important;\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  line-height: 1;\n/* Better Font Rendering =========== */\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n.icon-lock:before {\n  content: \"\\E98F\";\n}\n.icon-home:before {\n  content: \"\\E902\";\n}\n.icon-reset:before {\n  content: \"\\E903\";\n}\n.icon-github:before {\n  content: \"\\EAB0\";\n}\n.icon-icon-height:before {\n  content: \"\\E900\";\n}\n.icon-icon-width:before {\n  content: \"\\E901\";\n}\n.page-footer {\n  color: #333;\n}\n.page-footer .footer-content {\n  z-index: 100;\n  background-color: rgba(240,240,240,0.7);\n  padding: 20px;\n  padding-right: 80px;\n  font-size: 12px;\n}\n@media screen and (min-width: 375px) {\n  .page-footer .footer-content {\n    padding-right: 90px;\n    font-size: 14px;\n  }\n}\n@media screen and (min-width: 560px) {\n  .page-footer .footer-content {\n    padding-right: 20px;\n    margin: 0 85px;\n  }\n}\n@media screen and (min-width: 800px) {\n  .page-footer .footer-content {\n    margin: 0 auto;\n    max-width: 700px;\n  }\n}\n.github-link {\n  right: 0;\n  z-index: 110;\n  width: 60px;\n  height: 60px;\n  font-size: 22px;\n}\n@media screen and (min-width: 560px) {\n  .github-link {\n    font-size: 30px;\n    width: 80px;\n    height: 80px;\n  }\n}\n.github-link:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  border-color: transparent;\n  border-style: solid;\n  border-width: 30px;\n  border-right-color: rgba(20,20,20,0.7);\n  border-top-color: rgba(20,20,20,0.7);\n}\n@media screen and (min-width: 560px) {\n  .github-link:after {\n    border-width: 40px;\n  }\n}\n.github-link a,\n.github-link a:active,\n.github-link a:focus {\n  text-decoration: none;\n  position: relative;\n  display: block;\n  color: #f0f0f0;\n  height: 100%;\n  z-index: 100;\n}\n.github-link .icon-github {\n  position: absolute;\n  top: 7px;\n  right: 7px;\n}\n@media screen and (min-width: 560px) {\n  .github-link .icon-github {\n    top: 9px;\n    right: 9px;\n  }\n}\n", ""]);
+	exports.push([module.id, "html,\nbody,\ndiv,\nspan,\nobject,\niframe,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\np,\nblockquote,\npre,\nabbr,\naddress,\ncite,\ncode,\ndel,\ndfn,\nem,\nimg,\nins,\nkbd,\nq,\nsamp,\nsmall,\nstrong,\nsub,\nsup,\nvar,\nb,\ni,\ndl,\ndt,\ndd,\nol,\nul,\nli,\nfieldset,\nform,\nlabel,\nlegend,\ntable,\ncaption,\ntbody,\ntfoot,\nthead,\ntr,\nth,\ntd,\narticle,\naside,\ncanvas,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection,\nsummary,\ntime,\nmark,\naudio,\nvideo {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: 0;\n  font-size: 100%;\n  vertical-align: baseline;\n  background: transparent;\n  box-sizing: border-box;\n}\nbody {\n  line-height: 1;\n}\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block;\n}\nnav ul {\n  list-style: none;\n}\nblockquote,\nq {\n  quotes: none;\n}\nblockquote:before,\nq:before,\nblockquote:after,\nq:after {\n  content: '';\n  content: none;\n}\na {\n  margin: 0;\n  padding: 0;\n  font-size: 100%;\n  vertical-align: baseline;\n  background: transparent;\n}\ndel {\n  text-decoration: line-through;\n}\nabbr[title],\ndfn[title] {\n  border-bottom: 1px dotted;\n  cursor: help;\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ninput,\nselect {\n  vertical-align: middle;\n}\n@font-face {\n  font-family: 'Roboto Mono';\n  font-style: normal;\n  font-weight: 500;\n  src: local('Roboto Mono Medium'), local('RobotoMono-Medium'), url(" + __webpack_require__(486) + ") format('woff2'), url(" + __webpack_require__(487) + ") format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */\n}\nbody {\n  background-color: #f0f0f0;\n  color: #f0f0f0;\n  font-family: 'Roboto Mono', monospace;\n  font-weight: 500;\n  font-size: 8px;\n}\n@media screen and (min-width: 375px) {\n  body {\n    font-size: 10px;\n  }\n}\n@media screen and (min-width: 560px) {\n  body {\n    font-size: 16px;\n  }\n}\nmain,\n#page-wrapper {\n  height: 100%;\n}\n.overlay-content {\n  text-align: center;\n  position: absolute;\n  width: 100%;\n}\n.in-vr-mode .overlay-content {\n  display: none;\n}\n.page-footer {\n  bottom: 0;\n}\nh1 {\n  font-size: 24px;\n  text-align: center;\n  margin: 5px;\n  text-transform: uppercase;\n}\na,\na:focus,\na:visited {\n  color: #333;\n}\na:hover {\n  color: #ef2d5e;\n}\n.calculator {\n  background-color: #ef2d5e;\n  padding: 10px 5px;\n  position: relative;\n  z-index: 100;\n  width: 100%;\n}\n@media screen and (min-width: 560px) {\n  .calculator {\n    padding: 10px;\n    max-width: 560px;\n    margin: 0 auto;\n  }\n}\n.calculator .flex-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.calculator .flex-wrapper + .flex-wrapper {\n  margin-top: 2px;\n}\n.calculator .flex-wrapper label {\n  display: inline-block;\n}\n.calculator .flex-wrapper > div,\n.calculator .flex-wrapper > label {\n  padding: 0;\n  -webkit-box-flex: 2;\n      -ms-flex: 2 2;\n          flex: 2 2;\n  line-height: 24px;\n}\n.calculator .flex-wrapper > div:last-child,\n.calculator .flex-wrapper > label:last-child {\n  text-align: left;\n}\n.calculator .flex-wrapper > div:first-child,\n.calculator .flex-wrapper > label:first-child {\n  text-align: right;\n}\n@media screen and (min-width: 560px) {\n  .calculator .flex-wrapper > div,\n  .calculator .flex-wrapper > label {\n    line-height: 30px;\n  }\n}\n.calculator .flex-wrapper input {\n  font-family: 'Roboto Mono', monospace;\n  font-weight: 700;\n  margin: 2px 0;\n  padding: 2px 5px;\n  font-size: 8px;\n  line-height: 12px;\n  width: 60px;\n  background-color: #f0f0f0;\n  border: 1px solid rgba(0,0,0,0.5);\n  color: #333;\n}\n.calculator .flex-wrapper input:disabled {\n  color: #21897c;\n}\n@media screen and (min-width: 375px) {\n  .calculator .flex-wrapper input {\n    font-size: 10px;\n    width: 65px;\n  }\n}\n@media screen and (min-width: 560px) {\n  .calculator .flex-wrapper input {\n    font-size: 12px;\n    line-height: 16px;\n    width: 80px;\n  }\n}\n.calculator .field-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n.calculator .calculator-fields input {\n  margin: 0;\n}\n.calculator .calculator-fields .postfix {\n  position: relative;\n}\n.calculator .calculator-fields .postfix .icon-reset {\n  cursor: pointer;\n  position: absolute;\n  color: #f2e646;\n  font-size: 22px;\n  top: 6px;\n  left: 15px;\n}\n.calculator .source-fields {\n  margin-bottom: 5px;\n}\n.calculator .source-fields input {\n  text-align: center;\n  font-size: 12px;\n}\n@media screen and (min-width: 560px) {\n  .calculator .source-fields input {\n    font-size: 14px;\n    padding: 12px 8px;\n  }\n}\n.calculator .source-fields label {\n  position: relative;\n  color: #21897c;\n  font-size: 36px;\n  padding: 2px 10px;\n}\n@media screen and (min-width: 560px) {\n  .calculator .source-fields label {\n    font-size: 44px;\n  }\n}\n.calculator .source-fields label.field-locked:after {\n  font-family: 'calculator' !important;\n  line-height: 1;\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  content: \"\\E98F\";\n  color: #f2e646;\n  font-size: 15px;\n  position: absolute;\n  right: 14px;\n  top: 7px;\n}\n@media screen and (min-width: 560px) {\n  .calculator .source-fields label.field-locked:after {\n    right: 17px;\n    top: 9px;\n  }\n}\n.calculator .source-fields .field-wrapper {\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\n.calculator .source-fields .field-wrapper:last-child {\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: reverse;\n      -ms-flex-direction: row-reverse;\n          flex-direction: row-reverse;\n}\n.calculator .source-fields .field-wrapper:last-child .field-locked:after {\n  right: 25px;\n  top: 12px;\n}\n@media screen and (min-width: 560px) {\n  .calculator .source-fields .field-wrapper:last-child .field-locked:after {\n    right: 31px;\n    top: 15px;\n  }\n}\n@font-face {\n  font-family: 'calculator';\n  src: url(" + __webpack_require__(488) + ") format('truetype'), url(" + __webpack_require__(489) + ") format('woff'), url(" + __webpack_require__(490) + "#calculator) format('svg');\n  font-weight: normal;\n  font-style: normal;\n}\n[class^=\"icon-\"],\n[class*=\" icon-\"] {\n  font-family: 'calculator' !important;\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  line-height: 1;\n/* Better Font Rendering =========== */\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n.icon-lock:before {\n  content: \"\\E98F\";\n}\n.icon-home:before {\n  content: \"\\E902\";\n}\n.icon-reset:before {\n  content: \"\\E903\";\n}\n.icon-github:before {\n  content: \"\\EAB0\";\n}\n.icon-icon-height:before {\n  content: \"\\E900\";\n}\n.icon-icon-width:before {\n  content: \"\\E901\";\n}\n.page-footer {\n  color: #333;\n}\n.page-footer .footer-content {\n  z-index: 100;\n  background-color: rgba(240,240,240,0.7);\n  padding: 20px;\n  padding-right: 80px;\n  font-size: 12px;\n}\n@media screen and (min-width: 375px) {\n  .page-footer .footer-content {\n    padding-right: 90px;\n    font-size: 14px;\n  }\n}\n@media screen and (min-width: 560px) {\n  .page-footer .footer-content {\n    padding-right: 20px;\n    margin: 0 85px;\n  }\n}\n@media screen and (min-width: 820px) {\n  .page-footer .footer-content {\n    margin: 0 auto;\n    max-width: 720px;\n  }\n}\n.page-footer .help-links {\n  margin: 5px 5px 10px;\n}\n.page-footer .help-links a {\n  padding: 10px 20px;\n  background-color: #f2e646;\n  color: #ef2d5e;\n  text-transform: uppercase;\n  text-decoration: none;\n}\n.github-link {\n  right: 0;\n  z-index: 110;\n  width: 60px;\n  height: 60px;\n  font-size: 22px;\n}\n@media screen and (min-width: 560px) {\n  .github-link {\n    font-size: 30px;\n    width: 80px;\n    height: 80px;\n  }\n}\n.github-link:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  right: 0;\n  border-color: transparent;\n  border-style: solid;\n  border-width: 30px;\n  border-right-color: rgba(20,20,20,0.7);\n  border-top-color: rgba(20,20,20,0.7);\n}\n@media screen and (min-width: 560px) {\n  .github-link:after {\n    border-width: 40px;\n  }\n}\n.github-link a,\n.github-link a:active,\n.github-link a:focus {\n  text-decoration: none;\n  position: relative;\n  display: block;\n  color: #f0f0f0;\n  height: 100%;\n  z-index: 100;\n}\n.github-link .icon-github {\n  position: absolute;\n  top: 7px;\n  right: 7px;\n}\n@media screen and (min-width: 560px) {\n  .github-link .icon-github {\n    top: 9px;\n    right: 9px;\n  }\n}\n", ""]);
 
 	// exports
 
