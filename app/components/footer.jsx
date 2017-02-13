@@ -8,10 +8,7 @@ export default class Footer extends React.Component {
   render() {
     let helpLinks = null;
     if(this.props.appState == 'errorMaterial'){
-      console.log('Yo?');
       helpLinks = <div className="help-links"><a href="https://aframe.io/docs/0.5.0/introduction/faq.html#why-does-my-asset-e-g-image-video-model-not-load" target="blank" title="Visit A-Frame's FAQ">Read more about missing CORS headers</a></div>;
-    }else{
-      console.log('no yo');
     }
     return (
       <footer className="page-footer overlay-content ">
