@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'aframe';
 import {Scene, Entity} from 'aframe-react';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 import CalculatorField from './components/calculatorField.jsx';
 import CalculatorPreview from './components/calculatorPreview.jsx';
@@ -67,7 +68,7 @@ class CurvedimageCalculator extends React.Component {
         appState: 'loading',
         publicSrc: url,
         assetSrc: '#loading',
-        deleteIcon: <span
+        deleteIcon: <span role="button"
         className="icon-reset"
         onClick={this._deleteImageSource.bind(this)}></span>
     });
@@ -207,6 +208,7 @@ render () {
 
   let disabledPxFields = ( this.state.appState == 'preview' ) ? true : false ;
   let lockedIcon = disabledPxFields ? "field-locked" : '' ;
+  let copyToClipboard =  '<a-curvedimage src="'+ this.state.publicSrc +'" height="'+ this.state.h +'" radius="'+ this.state.r +'" theta-length="'+ this.state.thetaLength +'" theta-start="'+ this.state.thetaStart +'"></a-curvedimage>';
 
   return (
     <main className={this.state.VRMode }>
@@ -278,12 +280,17 @@ render () {
               max='360.0000'
               disabled='true' />
           </div>
+          <CopyToClipboard text={copyToClipboard}
+            onCopy={() => this.setState({copied: true})}>
+            <div role="button" tabIndex="0" className="button">Copy to clipboard</div>
+          </CopyToClipboard>
         </form>
       </section>
 
       <CalculatorPreview { ...this.state } />
 
       <Footer appState={this.state.appState} />
+      
     </main>
   );
 }

@@ -8,6 +8,21 @@ a
 a:focus
 a:visited
   color $colorBlack
-  
+  &.button
+    color $colorPrimary
+
 a:hover
   color $colorPrimary
+
+.button
+button
+  padding 8px $layoutSpaceAndHalf
+  background-color $colorHighlight
+  color $colorPrimary
+  font-size 12px
+  text-transform uppercase
+  text-decoration none
+  cursor pointer
+  border-radius: 2px;
+  &:active
+    background-color darken($colorHighlight, 15%)
