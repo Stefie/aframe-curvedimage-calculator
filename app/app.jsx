@@ -280,8 +280,7 @@ render () {
               max='360.0000'
               disabled='true' />
           </div>
-          <CopyToClipboard text={copyToClipboard}
-            onCopy={() => this.setState({copied: true})}>
+          <CopyToClipboard text={copyToClipboard}>
             <div role="button" tabIndex="0" className="button">Copy to clipboard</div>
           </CopyToClipboard>
         </form>
@@ -290,7 +289,7 @@ render () {
       <CalculatorPreview { ...this.state } />
 
       <Footer appState={this.state.appState} />
-      
+
     </main>
   );
 }
