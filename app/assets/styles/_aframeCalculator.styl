@@ -66,14 +66,8 @@
         font-size 22px
         top 4px
         left 15px
-    + .button
-      margin $layoutSpace auto 0
-      font-size 10px
-      @media screen and (min-width: 375px)
-        width 136px
-      @media screen and (min-width: 560px)
-        width 186px
-        font-size 12px
+        &:active
+          color darken($colorHighlight, 15%)
 
   .source-fields
     margin-bottom $layoutSpaceHalf
@@ -113,3 +107,14 @@
           @media screen and (min-width: 560px)
             right 31px
             top 15px
+
+.copy
+  z-index 100
+  position relative
+  margin $layoutSpaceHalf $layoutSpaceHalf 0
+  @media screen and (min-width: 375px)
+    width 210px
+    margin $layoutSpaceHalf auto 0
+  @media screen and (min-width: 560px)
+    margin-top $layoutSpace
+    width 184px

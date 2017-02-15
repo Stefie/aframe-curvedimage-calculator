@@ -71,228 +71,229 @@ class CurvedimageCalculator extends React.Component {
         deleteIcon: <span role="button"
         className="icon-reset"
         onClick={this._deleteImageSource.bind(this)}></span>
-    });
-    break;
-    case 'urlError':
-    this.setState({
-      appState: 'error',
-      assetSrc: '#error'
-    });
-    break;
-    case 'CORSError':
-    this.setState({
-      appState: 'errorMaterial',
-      assetSrc: '#error-material'
-    });
-    break;
-    case 'default':
-    this.setState({
-      publicSrc: '',
-      appState: 'default',
-      assetSrc: '#tutorial',
-      deleteIcon: ''
-    });
-    break;
-    default:
-    this.setState({
-      publicSrc: ' ',
-      appState: 'default',
-      assetSrc: '#tutorial',
-      deleteIcon: ''
-    });
-    break;
-  }
-}
-_changeWpx(e) {
-  const wpx = e.target.value;
-  this.setState({
-    wpx: wpx,
-    ratio: +(wpx / this.state.hpx).toFixed(4),
-    h: +( (this.state.thetaLength / 360) * (this.state.c / (wpx / this.state.hpx)) ).toFixed(4),
-    publicSrc: '',
-    assetSrc: '#free',
-    appState: 'free',
-    deleteIcon: ''
-  });
-}
-_changeHpx(e) {
-  const hpx = e.target.value;
-  this.setState({
-    hpx: hpx,
-    ratio: +(this.state.wpx / hpx).toFixed(4),
-    h: +( (this.state.thetaLength / 360) * (this.state.c / (this.state.wpx / hpx)) ).toFixed(4),
-    publicSrc: '',
-    assetSrc: '#free',
-    appState: 'free',
-    deleteIcon: ''
-  });
-}
-_changeHeight(e) {
-  const thetaLength = ( e.target.value * 360 ) / ( this.state.c / this.state.ratio);
-  this.setState({
-    h: e.target.value,
-    thetaLength: +thetaLength.toFixed(4),
-    thetaStart: +( 180 - ( thetaLength / 2 ) ).toFixed(4)
-  });
-}
-_changeRadius(e) {
-  const c = e.target.value * 2 * Math.PI;
-  this.setState({
-    c: +c.toFixed(4),
-    r: e.target.value,
-    h: +( (c * this.state.thetaLength / 360) / this.state.ratio).toFixed(4)
-  });
-}
-_changeThetaLength(e) {
-  this.setState({
-    thetaLength: e.target.value,
-    h: +( (this.state.c * e.target.value / 360) / this.state.ratio).toFixed(4),
-    thetaStart: +( 180 - ( e.target.value / 2 ) ).toFixed(4)
-  });
-}
-_setImageSrc(e) {
-  if(!e.target.value) {
-    this._handleDefaultStates('default');
-    return;
-  }
-
-  const url = e.target.value,
-        helperImg = new Image(),
-        _this = this;
-
-  this._handleDefaultStates('loading', url);
-
-  // echeck if the image can be loaded
-  helperImg.addEventListener("load", function(){
-    const imgWidth = this.naturalWidth,
-    imgHeight = this.naturalHeight,
-    assets = document.querySelector('a-assets'),
-    asset = document.createElement('a-asset-item'),
-    assetId = _this.state.assetCounter + 1;
-
-    asset.id = 'asset-' + assetId;
-    asset.setAttribute('src', url);
-
-    // listen to THREE.FileLoader error / loaded events for a-asset-item
-    asset.addEventListener("error", function(err){
-      assets.removeChild(asset);
-      _this._handleDefaultStates('CORSError');
-    });
-
-    asset.addEventListener("loaded", function(){
-      _this.setState({
-        appState: 'preview',
-        assetCounter: assetId,
-        assetSrc: url,
-        wpx: imgWidth,
-        hpx: imgHeight,
-        ratio: +(imgWidth / imgHeight).toFixed(4),
-        h: +( (_this.state.thetaLength / 360) * (_this.state.c / (imgWidth / imgHeight)) ).toFixed(4)
       });
+      break;
+      case 'urlError':
+      this.setState({
+        appState: 'error',
+        assetSrc: '#error'
+      });
+      break;
+      case 'CORSError':
+      this.setState({
+        appState: 'errorMaterial',
+        assetSrc: '#error-material'
+      });
+      break;
+      case 'default':
+      this.setState({
+        publicSrc: '',
+        appState: 'default',
+        assetSrc: '#tutorial',
+        deleteIcon: ''
+      });
+      break;
+      default:
+      this.setState({
+        publicSrc: ' ',
+        appState: 'default',
+        assetSrc: '#tutorial',
+        deleteIcon: ''
+      });
+      break;
+    }
+  }
+  _changeWpx(e) {
+    const wpx = e.target.value;
+    this.setState({
+      wpx: wpx,
+      ratio: +(wpx / this.state.hpx).toFixed(4),
+      h: +( (this.state.thetaLength / 360) * (this.state.c / (wpx / this.state.hpx)) ).toFixed(4),
+      publicSrc: '',
+      assetSrc: '#free',
+      appState: 'free',
+      deleteIcon: ''
     });
+  }
+  _changeHpx(e) {
+    const hpx = e.target.value;
+    this.setState({
+      hpx: hpx,
+      ratio: +(this.state.wpx / hpx).toFixed(4),
+      h: +( (this.state.thetaLength / 360) * (this.state.c / (this.state.wpx / hpx)) ).toFixed(4),
+      publicSrc: '',
+      assetSrc: '#free',
+      appState: 'free',
+      deleteIcon: ''
+    });
+  }
+  _changeHeight(e) {
+    const thetaLength = ( e.target.value * 360 ) / ( this.state.c / this.state.ratio);
+    this.setState({
+      h: e.target.value,
+      thetaLength: +thetaLength.toFixed(4),
+      thetaStart: +( 180 - ( thetaLength / 2 ) ).toFixed(4)
+    });
+  }
+  _changeRadius(e) {
+    const c = e.target.value * 2 * Math.PI;
+    this.setState({
+      c: +c.toFixed(4),
+      r: e.target.value,
+      h: +( (c * this.state.thetaLength / 360) / this.state.ratio).toFixed(4)
+    });
+  }
+  _changeThetaLength(e) {
+    this.setState({
+      thetaLength: e.target.value,
+      h: +( (this.state.c * e.target.value / 360) / this.state.ratio).toFixed(4),
+      thetaStart: +( 180 - ( e.target.value / 2 ) ).toFixed(4)
+    });
+  }
+  _setImageSrc(e) {
+    if(!e.target.value) {
+      this._handleDefaultStates('default');
+      return;
+    }
+    const url = e.target.value,
+          helperImg = new Image(),
+          _this = this;
 
-    assets.appendChild(asset);
-  }, false)
+    this._handleDefaultStates('loading', url);
 
-  helperImg.addEventListener( 'error', function(){
-    _this._handleDefaultStates('urlError');
-  }, false );
+    // echeck if the image can be loaded
+    helperImg.addEventListener("load", function(){
+      const imgWidth = this.naturalWidth,
+      imgHeight = this.naturalHeight,
+      assets = document.querySelector('a-assets'),
+      asset = document.createElement('a-asset-item'),
+      assetId = _this.state.assetCounter + 1;
 
-  helperImg.src = url;
-}
-_deleteImageSource(e){
-  this._handleDefaultStates('default');
-}
+      asset.id = 'asset-' + assetId;
+      asset.setAttribute('src', url);
 
-render () {
+      // listen to THREE.FileLoader error / loaded events for a-asset-item
+      asset.addEventListener("error", function(err){
+        assets.removeChild(asset);
+        _this._handleDefaultStates('CORSError');
+      });
 
-  let disabledPxFields = ( this.state.appState == 'preview' ) ? true : false ;
-  let lockedIcon = disabledPxFields ? "field-locked" : '' ;
-  let copyToClipboard =  '<a-curvedimage src="'+ this.state.publicSrc +'" height="'+ this.state.h +'" radius="'+ this.state.r +'" theta-length="'+ this.state.thetaLength +'" theta-start="'+ this.state.thetaStart +'"></a-curvedimage>';
+      asset.addEventListener("loaded", function(){
+        _this.setState({
+          appState: 'preview',
+          assetCounter: assetId,
+          assetSrc: url,
+          wpx: imgWidth,
+          hpx: imgHeight,
+          ratio: +(imgWidth / imgHeight).toFixed(4),
+          h: +( (_this.state.thetaLength / 360) * (_this.state.c / (imgWidth / imgHeight)) ).toFixed(4)
+        });
+      });
 
-  return (
-    <main className={this.state.VRMode }>
-      <GitHub />
-      <section className="overlay-content">
-        <form className="calculator">
-          <div className="source-fields flex-wrapper">
-            <div className="field-wrapper">
-              <label
-                className={"icon-icon-width " + lockedIcon}
-                aria-label="image-width">
-              </label>
-              <input
-                type="number"
-                value={ this.state.wpx }
-                onChange={this._changeWpx.bind(this)}
-                placeholder="image-width"
-                min="0"
-                disabled={disabledPxFields} />
+      assets.appendChild(asset);
+    }, false)
+
+    helperImg.addEventListener( 'error', function(){
+      _this._handleDefaultStates('urlError');
+    }, false );
+
+    helperImg.src = url;
+  }
+  _deleteImageSource(e){
+    this._handleDefaultStates('default');
+  }
+  _copyToClipboard(){
+
+  }
+
+  render () {
+
+    let disabledPxFields = ( this.state.appState == 'preview' ) ? true : false ;
+    let lockedIcon = disabledPxFields ? "field-locked" : '' ;
+
+    let copyToClipboard = (this.state.appState == 'error' || this.state.appState == 'errorMaterial' || this.state.appState == 'loading') ? false : '<a-curvedimage src="'+ this.state.publicSrc +'" height="'+ this.state.h +'" radius="'+ this.state.r +'" theta-length="'+ this.state.thetaLength +'" theta-start="'+ this.state.thetaStart +'"></a-curvedimage>';
+
+    return (
+      <main className={this.state.VRMode }>
+        <GitHub />
+        <section className="overlay-content">
+          <form className="calculator">
+            <div className="source-fields flex-wrapper">
+              <div className="field-wrapper">
+                <label
+                  className={"icon-icon-width " + lockedIcon}
+                  aria-label="image-width">
+                </label>
+                <input
+                  type="number"
+                  value={ this.state.wpx }
+                  onChange={this._changeWpx.bind(this)}
+                  placeholder="image-width"
+                  min="0"
+                  disabled={disabledPxFields} />
+              </div>
+              <div className="field-wrapper">
+                <label
+                  className={"icon-icon-height " + lockedIcon}
+                  aria-label="image-height">
+                </label>
+                <input
+                  type="number"
+                  value={ this.state.hpx }
+                  onChange={this._changeHpx.bind(this)}
+                  placeholder="image-height"
+                  min="0"
+                  disabled={disabledPxFields} />
+              </div>
             </div>
-            <div className="field-wrapper">
-              <label
-                className={"icon-icon-height " + lockedIcon}
-                aria-label="image-height">
-              </label>
-              <input
-                type="number"
-                value={ this.state.hpx }
-                onChange={this._changeHpx.bind(this)}
-                placeholder="image-height"
-                min="0"
-                disabled={disabledPxFields} />
+            <div className="calculator-fields">
+              <CalculatorField
+                onChange={this._changeHeight.bind(this)}
+                label='&lt;a-curvedimage height="'
+                postfix='"'
+                value={ this.state.h }
+                placeholder='height' />
+              <CalculatorField
+                onChange={this._changeThetaLength.bind(this)}
+                label=' theta-length="'
+                postfix='"'
+                value={ this.state.thetaLength }
+                placeholder='theta-length'
+                max='360.0000' />
+              <CalculatorField
+                onChange={this._changeRadius.bind(this)}
+                label=' radius="'
+                postfix='"'
+                value={ this.state.r }
+                placeholder='radius' />
+              <CalculatorField
+                type='url'
+                onChange={this._setImageSrc.bind(this)}
+                label=' src="'
+                postfix='"'
+                value={ this.state.publicSrc }
+                placeholder='image-src'
+                deleteIcon={ this.state.deleteIcon } />
+              <CalculatorField
+                onChange={this._changeHeight.bind(this)}
+                label=' theta-start="'
+                postfix='"&gt;&lt;/a-curvedimage&gt;'
+                value={ this.state.thetaStart }
+                placeholder='theta-start'
+                max='360.0000'
+                disabled='true' />
             </div>
-          </div>
-          <div className="calculator-fields">
-            <CalculatorField
-              onChange={this._changeHeight.bind(this)}
-              label='&lt;a-curvedimage height="'
-              postfix='"'
-              value={ this.state.h }
-              placeholder='height' />
-            <CalculatorField
-              onChange={this._changeThetaLength.bind(this)}
-              label=' theta-length="'
-              postfix='"'
-              value={ this.state.thetaLength }
-              placeholder='theta-length'
-              max='360.0000' />
-            <CalculatorField
-              onChange={this._changeRadius.bind(this)}
-              label=' radius="'
-              postfix='"'
-              value={ this.state.r }
-              placeholder='radius' />
-            <CalculatorField
-              type='url'
-              onChange={this._setImageSrc.bind(this)}
-              label=' src="'
-              postfix='"'
-              value={ this.state.publicSrc }
-              placeholder='image-src'
-              deleteIcon={ this.state.deleteIcon } />
-            <CalculatorField
-              onChange={this._changeHeight.bind(this)}
-              label=' theta-start="'
-              postfix='"&gt;&lt;/a-curvedimage&gt;'
-              value={ this.state.thetaStart }
-              placeholder='theta-start'
-              max='360.0000'
-              disabled='true' />
-          </div>
-          <CopyToClipboard text={copyToClipboard}>
-            <div role="button" tabIndex="0" className="button">Copy to clipboard</div>
-          </CopyToClipboard>
-        </form>
-      </section>
+          </form>
+          {copyToClipboard && <CopyToClipboard text={copyToClipboard}><div role="button" tabIndex="0" className="button button-inverse copy">Copy to clipboard</div></CopyToClipboard>}
+        </section>
 
-      <CalculatorPreview { ...this.state } />
+        <CalculatorPreview { ...this.state } />
 
-      <Footer appState={this.state.appState} />
+        <Footer appState={this.state.appState} />
 
-    </main>
-  );
-}
+      </main>
+    );
+  }
 }
 
 ReactDOM.render(
