@@ -8457,9 +8457,6 @@
 	      this._handleDefaultStates('default');
 	    }
 	  }, {
-	    key: '_copyToClipboard',
-	    value: function _copyToClipboard() {}
-	  }, {
 	    key: 'render',
 	    value: function render() {
 
@@ -110099,18 +110096,16 @@
 	  _createClass(Footer, [{
 	    key: 'render',
 	    value: function render() {
-	      var helpLinks = null;
-	      if (this.props.appState == 'errorMaterial') {
-	        helpLinks = _react2.default.createElement(
-	          'div',
-	          { className: 'help-links' },
-	          _react2.default.createElement(
-	            'a',
-	            { className: 'button', href: 'https://aframe.io/docs/0.5.0/introduction/faq.html#why-does-my-asset-e-g-image-video-model-not-load', target: 'blank', title: 'Visit A-Frame\'s FAQ' },
-	            'Read more about missing CORS headers'
-	          )
-	        );
-	      }
+	      var helpLinks = this.props.appState == 'errorMaterial' ? _react2.default.createElement(
+	        'div',
+	        { className: 'help-links' },
+	        _react2.default.createElement(
+	          'a',
+	          { className: 'button', href: 'https://aframe.io/docs/0.5.0/introduction/faq.html#why-does-my-asset-e-g-image-video-model-not-load', target: 'blank', title: 'Visit A-Frame\'s FAQ' },
+	          'Read more about missing CORS headers'
+	        )
+	      ) : null;
+
 	      return _react2.default.createElement(
 	        'footer',
 	        { className: 'page-footer overlay-content ' },
@@ -110174,7 +110169,6 @@
 	  _createClass(GitHub, [{
 	    key: 'render',
 	    value: function render() {
-	      var loading = this.props.appState == 'loading' ? 'true' : 'false';
 	      return _react2.default.createElement(
 	        'section',
 	        { className: 'overlay-content github-link' },

@@ -202,9 +202,6 @@ class CurvedimageCalculator extends React.Component {
   _deleteImageSource(e){
     this._handleDefaultStates('default');
   }
-  _copyToClipboard(){
-
-  }
 
   render () {
 
